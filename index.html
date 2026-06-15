@@ -3,9 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>顕微鏡テストパーク</title>
+  <title>クラス時間割 ＆ 掲示板</title>
   
-  <!-- Tailwind CSS & FontAwesome -->
+  <!-- 【ファビコン設定】 -->
+  <link rel="icon" href="./icon.png" type="image/png">
+  <link class="apple-touch-icon" href="./icon.png">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- LINEログイン用のSDK読み込み -->
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
@@ -79,30 +82,34 @@
 </head>
 <body class="bg-[#f0f4f8] text-slate-800 min-h-screen select-none relative overflow-x-hidden flex flex-col justify-between hide-ruby">
 
-  <!-- ========================================================= -->
-  <!-- 1. ホーム画面（ダッシュボード） -->
-  <!-- ========================================================= -->
+  <!-- 【Liquid Glass】背景を透過してゆらめく液体グラデーション（色彩を少し鮮やかにして透明感を強調） -->
+  <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none select-none">
+    <div class="absolute top-[8%] left-[5%] w-[400px] h-[400px] rounded-full bg-blue-300/40 blur-[90px]"></div>
+    <div class="absolute bottom-[10%] right-[2%] w-[500px] h-[500px] rounded-full bg-amber-200/40 blur-[100px]"></div>
+  </div>
+
+  <!-- ヘッダー（極限透明・オリジナルロゴ仕様） -->
+  <header class="bg-white/15 backdrop-blur-xl border-b border-white/20 py-3 flex items-center justify-between shrink-0">
+    <div class="flex items-center gap-3">
+      <!-- 📄 時間割サイト（jikanwarietsuran）へ直接戻るボタンリンク -->
+      <a href="https://projector0116-lab.github.io/jikanwarietsuran/" onclick="playTapSound()" class="bg-slate-100 hover:bg-slate-200 text-slate-500 px-3.5 py-1.5 rounded-full text-xs font-bold transition flex items-center gap-1 shadow-sm active:scale-95">
+        <i class="fa-solid fa-arrow-left"></i> 前にもどる
+      </a>
+      <h1 class="text-sm font-extrabold text-slate-700 tracking-wide">テストパーク ホーム</h1>
+    </div>
+    
+    <!-- 右上：LINEアバター連携 & 通知ベル -->
+    <div id="home-user-avatar" class="flex items-center gap-4 text-slate-500">
+      <i class="fa-solid fa-bell text-lg cursor-pointer hover:text-slate-700"></i>
+      <button onclick="loginWithLine()" class="bg-[#06C755] hover:bg-[#05b34c] text-white font-bold text-xs py-1.5 px-4 rounded-full flex items-center gap-1.5 shadow-sm active:scale-95 transition-all">
+        <i class="fa-brands fa-line text-sm"></i> LINEログイン
+      </button>
+    </div>
+  </header>
+
+  <!-- タブレット風の外枠背景を構築 -->
   <div id="screen-home" class="absolute inset-0 flex flex-col justify-between z-10 bg-gradient-to-br from-[#d9f2e6] to-[#b3e5fc] screen-fade screen-active overflow-y-auto">
     
-    <!-- ホームヘッダー（前にもどるボタンに時間割サイトのURLをリンク設定しました） -->
-    <header class="bg-white/80 backdrop-blur-md px-6 py-3 flex items-center justify-between border-b border-slate-200 shrink-0">
-      <div class="flex items-center gap-3">
-        <!-- 📄 時間割サイト（jikanwarietsuran）へ直接戻るように修正したボタンリンク -->
-        <a href="https://projector0116-lab.github.io/jikanwarietsuran/" class="bg-slate-100 hover:bg-slate-200 text-slate-500 px-3.5 py-1.5 rounded-full text-xs font-bold transition flex items-center gap-1 shadow-sm active:scale-95">
-          <i class="fa-solid fa-arrow-left"></i> 前にもどる
-        </a>
-        <h1 class="text-sm font-extrabold text-slate-700 tracking-wide">テストパーク ホーム</h1>
-      </div>
-      
-      <!-- 右上：LINEアバター連携 & 通知ベル -->
-      <div id="home-user-avatar" class="flex items-center gap-4 text-slate-500">
-        <i class="fa-solid fa-bell text-lg cursor-pointer hover:text-slate-700"></i>
-        <button onclick="loginWithLine()" class="bg-[#06C755] hover:bg-[#05b34c] text-white font-bold text-xs py-1.5 px-4 rounded-full flex items-center gap-1.5 shadow-sm active:scale-95 transition-all">
-          <i class="fa-brands fa-line text-sm"></i> LINEログイン
-        </button>
-      </div>
-    </header>
-
     <!-- きょうの教科プルダウン -->
     <div class="max-w-6xl w-full mx-auto px-6 pt-5 shrink-0 flex justify-between items-center">
       <div class="inline-flex items-center gap-2 bg-white/40 backdrop-blur border border-white/50 px-4 py-2 rounded-xl shadow-sm text-xs font-bold text-slate-700 select-none">
@@ -112,7 +119,7 @@
       </div>
     </div>
 
-    <!-- ホームコンテンツ（2分割レイアウト） -->
+    <!-- ホームコンテンツ（2分割レイアウト：スマホ対応） -->
     <main class="flex-1 max-w-6xl w-full mx-auto px-6 py-5 grid grid-cols-1 md:grid-cols-2 gap-6 overflow-y-auto pb-24">
       
       <!-- 左コラム：これからやるテスト -->
@@ -159,10 +166,13 @@
   <!-- 2. テストダウンロード ＆ カウントダウン（教室背景） -->
   <!-- ========================================================= -->
   <div id="screen-loading" style="display: none;" class="absolute inset-0 bg-[#9cd2e6] z-20 flex flex-col items-center justify-center p-4 screen-fade">
+    <!-- 教室イラスト風背景 -->
     <div class="absolute inset-0 -z-10 flex flex-col justify-end pointer-events-none select-none">
+      <!-- 黒板 -->
       <div class="w-[85%] h-[35%] bg-[#3a594e] border-[8px] border-[#be8353] rounded-md mx-auto mb-10 shadow-lg relative flex items-center justify-center">
         <div class="text-white/10 text-xl font-bold select-none">Welcome to Science Class</div>
       </div>
+      <!-- 机・椅子のシルエット -->
       <div class="h-[20%] w-full bg-[#83a9ba] opacity-60 flex justify-around px-8 items-end pb-2">
         <div class="w-16 h-10 bg-[#cf9e7d] rounded-t border-b-4 border-slate-600"></div>
         <div class="w-16 h-10 bg-[#cf9e7d] rounded-t border-b-4 border-slate-600"></div>
@@ -378,6 +388,7 @@
         <!-- 左側：丸型得点メーター -->
         <div class="flex flex-col items-center justify-center shrink-0 w-full md:w-auto md:border-r border-slate-100 md:pr-8">
           <div class="relative w-36 h-36 flex items-center justify-center">
+            <!-- 円形進捗ゲージ -->
             <svg class="w-full h-full transform -rotate-90">
               <circle cx="72" cy="72" r="62" stroke="#e2e8f0" stroke-width="12" fill="transparent" />
               <circle id="score-circle" cx="72" cy="72" r="62" stroke="#f97316" stroke-width="12" fill="transparent" 
@@ -425,7 +436,7 @@
           <i class="fa-solid fa-table-cells-large silhouette-icon"></i> 採点結果（タップして解説へ）
         </h3>
         
-        <!-- 6問のグリッド -->
+        <!-- 6問のグリッド（Benesseテスト結果そっくり） -->
         <div class="grid grid-cols-3 sm:grid-cols-6 gap-3">
           <div onclick="scrollToQuestion(0)" class="bg-slate-50 border border-slate-200 rounded-xl p-3 text-center space-y-2 cursor-pointer active:scale-95 transition shadow-sm hover:shadow">
             <div class="text-[10px] text-slate-400 font-bold">1問 <span id="grid-score-0" class="text-slate-600">15点</span></div>
@@ -512,20 +523,24 @@
 
 
   <script>
-    // ==========================================
-    // 設定
-    // ==========================================
+    // iOS Safari用のオーディオ制限解除イベント
+    document.body.addEventListener('click', () => {
+      getAudioContext();
+    }, { once: true });
+
     const LIFF_ID = '2010391463-HL6C04SX';
-    const LINE_ACCOUNT_URL = 'https://line.me/R/ti/p/@613murqr';
 
     let userProfile = null;
     let canvas, ctx;
     let isDrawing = false;
-    let drawMode = 'off'; // 'off', 'draw', 'erase'
+    let drawMode = 'off'; // 'off' (通常モード), 'draw' (赤ペン), 'erase' (消しゴム)
     let isTestCompleted = false; // テストを解いたかどうかの状態フラグ
     let finalScore = 0;
 
-    // ルビ付き問題
+    // シャッフル用の問題配列
+    let activeQuestions = [];
+
+    // 元の問題データ
     const quizData = [
       {
         question: "【手順①】<ruby>顕微鏡<rt>けんびきょう</rt></ruby>を使うとき、最初に対物レンズを一番【 ？ 】<ruby>倍率<rt>ばいりつ</rt></ruby>のものにし、全体の明るさが均一に明るくなるように反射鏡を調整します。",
@@ -601,6 +616,7 @@
       }
     ];
 
+    // 間違えた問題に対してAIが自動選択する類似再チャレンジ問題データ
     const aiChallengeData = {
       0: {
         question: "【AI類題①】顕微鏡を最も高い倍率からスタートして、ピント合わせを行ってはいけない理由は何ですか？",
@@ -628,7 +644,168 @@
       }
     };
 
-    let selectedAnswers = Array(quizData.length).fill(null);
+    // ==========================================
+    // 【Web Audio API】内蔵シンセサイザー効果音生成モジュール
+    // ==========================================
+    let audioCtx = null;
+    function getAudioContext() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      return audioCtx;
+    }
+
+    function playTapSound() {
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.frequency.setValueAtTime(800, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(150, ctx.currentTime + 0.08);
+        gain.gain.setValueAtTime(0.08, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.08);
+      } catch(e){}
+    }
+
+    function playPopupSound() {
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.frequency.setValueAtTime(300, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(900, ctx.currentTime + 0.15);
+        gain.gain.setValueAtTime(0.08, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.15);
+      } catch(e){}
+    }
+
+    function playTick() {
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.frequency.setValueAtTime(1200, ctx.currentTime);
+        gain.gain.setValueAtTime(0.08, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.03);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.03);
+      } catch(e){}
+    }
+
+    function playCorrectSound() {
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const osc1 = ctx.createOscillator();
+        const gain1 = ctx.createGain();
+        osc1.connect(gain1);
+        gain1.connect(ctx.destination);
+        osc1.frequency.setValueAtTime(1046, ctx.currentTime);
+        gain1.gain.setValueAtTime(0.15, ctx.currentTime);
+        gain1.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
+        osc1.start();
+        osc1.stop(ctx.currentTime + 0.15);
+
+        setTimeout(() => {
+          const osc2 = ctx.createOscillator();
+          const gain2 = ctx.createGain();
+          osc2.connect(gain2);
+          gain2.connect(ctx.destination);
+          osc2.frequency.setValueAtTime(1318, ctx.currentTime);
+          gain2.gain.setValueAtTime(0.15, ctx.currentTime);
+          gain2.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+          osc2.start();
+          osc2.stop(ctx.currentTime + 0.3);
+        }, 100);
+      } catch(e){}
+    }
+
+    function playIncorrectSound() {
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const osc1 = ctx.createOscillator();
+        const gain1 = ctx.createGain();
+        osc1.type = 'sawtooth';
+        osc1.connect(gain1);
+        gain1.connect(ctx.destination);
+        osc1.frequency.setValueAtTime(150, ctx.currentTime);
+        gain1.gain.setValueAtTime(0.15, ctx.currentTime);
+        gain1.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+        osc1.start();
+        osc1.stop(ctx.currentTime + 0.3);
+
+        const osc2 = ctx.createOscillator();
+        const gain2 = ctx.createGain();
+        osc2.type = 'sawtooth';
+        osc2.connect(gain2);
+        gain2.connect(ctx.destination);
+        osc2.frequency.setValueAtTime(155, ctx.currentTime);
+        gain2.gain.setValueAtTime(0.15, ctx.currentTime);
+        gain2.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+        osc2.start();
+        osc2.stop(ctx.currentTime + 0.3);
+      } catch(e){}
+    }
+
+    function playStampSound() {
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.frequency.setValueAtTime(100, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(20, ctx.currentTime + 0.25);
+        gain.gain.setValueAtTime(0.3, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.25);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.25);
+      } catch(e){}
+    }
+
+    function playFanfare() {
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const notes = [523, 659, 784, 1046]; 
+        notes.forEach((freq, idx) => {
+          setTimeout(() => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.frequency.setValueAtTime(freq, ctx.currentTime);
+            gain.gain.setValueAtTime(0.12, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.4);
+          }, idx * 100);
+        });
+      } catch(e){}
+    }
+
+    // 配列シャッフル関数
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
 
     // ==========================================
     // ホーム画面の動的出し分けレンダリング（顕微鏡だけに特化）
@@ -637,8 +814,9 @@
       const upcomingContainer = document.getElementById('upcoming-tests-container');
       const completedContainer = document.getElementById('completed-tests-container');
 
+      if (!upcomingContainer || !completedContainer) return;
+
       if (!isTestCompleted) {
-        // まだテストをやっていない時の表示（「顕微鏡の使い方」だけを1枚出す）
         upcomingContainer.innerHTML = `
           <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between transition hover:shadow animate-card">
             <div class="space-y-2 pr-2">
@@ -653,12 +831,11 @@
           </div>
         `;
         completedContainer.innerHTML = `
-          <div class="text-center py-10 text-slate-400 text-xs italic">
+          <div class="text-center py-10 text-slate-400 text-xs italic animate-card">
             実施済みのテストはまだありません。
           </div>
         `;
       } else {
-        // テストを完了した後の表示（これからやるを空にして、実施済みに追加）
         upcomingContainer.innerHTML = `
           <div class="text-center py-10 text-slate-500 text-xs font-bold bg-white/30 border border-dashed border-slate-350 rounded-2xl p-6 animate-card">
             🎉 すべてのテストを完了しました！
@@ -695,7 +872,6 @@
             void toEl.offsetWidth; // リフロー
             toEl.classList.add('screen-active');
             
-            // テスト画面に遷移した場合は、キャンバスをリサイズして初期化
             if (toId === 'screen-test') {
               initCanvas();
             }
@@ -714,7 +890,7 @@
     }
 
     async function initLiff() {
-      if (!LIFF_ID || LIFF_ID === 'ここにコピーしたLIFF_IDを貼り付け') {
+      if (!LIFF_ID || LIFF_ID === '2010391463-HL6C04SX' === false) {
         init();
         return;
       }
@@ -738,20 +914,23 @@
       } catch (err) {
         console.error('LIFF初期化失敗:', err);
       }
-      renderHomeScreen(); // 初回のホーム画面描画
+      init(); // 確実に初期描画を走らせます
     }
 
     // ふりがな切り替え処理
     function openSettingsModal() {
+      playPopupSound();
       document.getElementById('settings-modal').style.display = 'flex';
     }
 
     function closeSettingsModal() {
+      playTapSound();
       document.getElementById('settings-modal').style.display = 'none';
     }
 
     // ふりがなオンオフ
     function toggleRuby() {
+      playTapSound();
       const isChecked = document.getElementById('ruby-toggle').checked;
       if (isChecked) {
         document.body.classList.remove('hide-ruby'); 
@@ -765,7 +944,9 @@
     // ==========================================
     function initCanvas() {
       canvas = document.getElementById('memo-canvas');
+      if (!canvas) return;
       ctx = canvas.getContext('2d');
+      if (!ctx) return;
       resizeCanvas();
 
       canvas.addEventListener('mousedown', startDraw);
@@ -781,8 +962,10 @@
     }
 
     function resizeCanvas() {
-      if (!canvas) return;
-      const rect = canvas.parentElement.getBoundingClientRect();
+      if (!canvas || !ctx) return;
+      const parent = canvas.parentElement;
+      if (!parent) return;
+      const rect = parent.getBoundingClientRect();
       canvas.width = rect.width;
       canvas.height = rect.height;
       ctx.lineCap = 'round';
@@ -790,17 +973,20 @@
     }
 
     function toggleTool(mode) {
+      playTapSound();
       const btnMemo = document.getElementById('btn-tool-memo');
       const btnEraser = document.getElementById('btn-tool-eraser');
+
+      if (!btnMemo || !btnEraser) return;
 
       if (drawMode === mode) {
         drawMode = 'off';
         btnMemo.className = "bg-white border border-slate-300 text-slate-600 font-bold text-[10px] px-2.5 py-1.5 rounded-lg flex items-center gap-1 shadow-sm";
         btnEraser.className = "bg-white border border-slate-300 text-slate-600 font-bold text-[10px] px-2.5 py-1.5 rounded-lg flex items-center gap-1 shadow-sm";
-        canvas.classList.add('pointer-events-none'); 
+        if (canvas) canvas.classList.add('pointer-events-none'); 
       } else {
         drawMode = mode;
-        canvas.classList.remove('pointer-events-none'); 
+        if (canvas) canvas.classList.remove('pointer-events-none'); 
 
         if (mode === 'draw') {
           btnMemo.className = "bg-red-500 border border-red-600 text-white font-bold text-[10px] px-2.5 py-1.5 rounded-lg flex items-center gap-1 shadow-sm active:scale-95";
@@ -813,7 +999,7 @@
     }
 
     function startDraw(e) {
-      if (drawMode === 'off') return;
+      if (drawMode === 'off' || !ctx) return;
       isDrawing = true;
       ctx.beginPath();
       const coords = getCoords(e);
@@ -821,7 +1007,7 @@
     }
 
     function draw(e) {
-      if (!isDrawing || drawMode === 'off') return;
+      if (!isDrawing || drawMode === 'off' || !ctx) return;
       e.preventDefault(); 
       const coords = getCoords(e);
 
@@ -843,6 +1029,7 @@
     }
 
     function getCoords(e) {
+      if (!canvas) return { x: 0, y: 0 };
       const rect = canvas.getBoundingClientRect();
       const clientX = e.touches ? e.touches[0].clientX : e.clientX;
       const clientY = e.touches ? e.touches[0].clientY : e.clientY;
@@ -863,6 +1050,7 @@
     // テストフロー開始（ダウンロード＆カウント）
     // ==========================================
     function startTestFlow() {
+      playTapSound();
       changeScreen('screen-home', 'screen-loading', 'flex');
       
       document.getElementById('download-modal').style.display = 'block';
@@ -879,16 +1067,16 @@
           progress = 100;
           clearInterval(interval);
           
-          bar.style.width = '100%';
-          text.innerText = '100%';
-          statusText.innerText = 'テストをダウンロード完了しました。';
+          if (bar) bar.style.width = '100%';
+          if (text) text.innerText = '100%';
+          if (statusText) statusText.innerText = 'テストをダウンロード完了しました。';
 
           setTimeout(() => {
             startCountdown();
           }, 600);
         } else {
-          bar.style.width = `${progress}%`;
-          text.innerText = `${progress}%`;
+          if (bar) bar.style.width = `${progress}%`;
+          if (text) text.innerText = `${progress}%`;
         }
       }, 100);
     }
@@ -901,15 +1089,19 @@
       const numEl = document.getElementById('countdown-number');
       numEl.innerText = count;
       numEl.classList.add('animate-countdown');
+      
+      playTick(); // カウント音
 
       const timer = setInterval(() => {
         count--;
         if (count <= 0) {
           clearInterval(timer);
+          playCorrectSound(); // 開始合図音
           changeScreen('screen-loading', 'screen-test', 'flex');
           startTest();
         } else {
           numEl.innerText = count;
+          playTick(); // カウント音
           numEl.classList.remove('animate-countdown');
           void numEl.offsetWidth; 
           numEl.classList.add('animate-countdown');
@@ -918,10 +1110,20 @@
     }
 
     // ==========================================
-    // テスト中システム
+    // テスト中システム（ランダムシャッフル機能）
     // ==========================================
     function startTest() {
-      selectedAnswers = Array(quizData.length).fill(null);
+      // 【ランダム出題（問題と選択肢を丸ごとシャッフル）】
+      activeQuestions = JSON.parse(JSON.stringify(quizData)); // 元の配列をディープコピーして破壊を防ぐ
+      shuffleArray(activeQuestions);
+
+      activeQuestions.forEach(q => {
+        const correctText = q.choices[q.correct]; // シャッフル前の正解テキストを取得
+        shuffleArray(q.choices);                 // 選択肢をシャッフル
+        q.correct = q.choices.indexOf(correctText); // シャッフル後の正解インデックスを自動再マッピング
+      });
+
+      selectedAnswers = Array(activeQuestions.length).fill(null);
       currentQuestionIndex = 0;
       clearCanvas();
       renderTabs();
@@ -930,9 +1132,10 @@
 
     function renderTabs() {
       const container = document.getElementById('test-tabs');
+      if (!container) return;
       container.innerHTML = '';
 
-      quizData.forEach((_, index) => {
+      activeQuestions.forEach((_, index) => {
         const btn = document.createElement('button');
         btn.id = `tab-btn-${index}`;
         
@@ -945,6 +1148,7 @@
         btn.innerHTML = `問${index + 1}` + (isAnswered ? ` <i class="fa-solid fa-circle-check text-[10px] text-emerald-600 animate-check-pop"></i>` : "");
         
         btn.onclick = () => {
+          playTapSound();
           currentQuestionIndex = index;
           renderTabs();
           showQuestion();
@@ -954,14 +1158,21 @@
     }
 
     function showQuestion() {
-      const q = quizData[currentQuestionIndex];
-      document.getElementById('test-question').innerHTML = `${currentQuestionIndex + 1}. ${q.question}`;
+      const q = activeQuestions[currentQuestionIndex];
+      const qEl = document.getElementById('test-question');
+      if (qEl) qEl.innerHTML = `${currentQuestionIndex + 1}. ${q.question}`;
 
-      document.getElementById('btn-prev').disabled = (currentQuestionIndex === 0);
-      document.getElementById('btn-next').disabled = (currentQuestionIndex === quizData.length - 1);
-      document.getElementById('page-indicator').innerText = `${currentQuestionIndex + 1} / ${quizData.length}問目`;
+      const btnPrev = document.getElementById('btn-prev');
+      if (btnPrev) btnPrev.disabled = (currentQuestionIndex === 0);
+
+      const btnNext = document.getElementById('btn-next');
+      if (btnNext) btnNext.disabled = (currentQuestionIndex === activeQuestions.length - 1);
+
+      const pageInd = document.getElementById('page-indicator');
+      if (pageInd) pageInd.innerText = `${currentQuestionIndex + 1} / ${activeQuestions.length}問目`;
 
       const choicesContainer = document.getElementById('test-choices');
+      if (!choicesContainer) return;
       choicesContainer.innerHTML = '';
 
       q.choices.forEach((choice, index) => {
@@ -982,7 +1193,7 @@
 
         card.onclick = () => {
           if (drawMode !== 'off') return;
-
+          playTapSound();
           selectedAnswers[currentQuestionIndex] = index;
           renderTabs();
           showQuestion();
@@ -992,14 +1203,15 @@
       });
     }
 
-    // 解答リセット
     function resetAnswer() {
+      playTapSound();
       selectedAnswers[currentQuestionIndex] = null;
       renderTabs();
       showQuestion();
     }
 
     function prevQuestion() {
+      playTapSound();
       if (currentQuestionIndex > 0) {
         currentQuestionIndex--;
         renderTabs();
@@ -1008,7 +1220,8 @@
     }
 
     function nextQuestion() {
-      if (currentQuestionIndex < quizData.length - 1) {
+      playTapSound();
+      if (currentQuestionIndex < activeQuestions.length - 1) {
         currentQuestionIndex++;
         renderTabs();
         showQuestion();
@@ -1016,13 +1229,15 @@
     }
 
     // ==========================================
-    // 見直し確認モーダル ＆ 採点
+    // 見直し確認モーダル ＆ 採点（AI個別指導）
     // ==========================================
     function openSubmitConfirm() {
+      playPopupSound();
       document.getElementById('submit-confirm-modal').style.display = 'flex';
     }
 
     function closeSubmitConfirm() {
+      playTapSound();
       document.getElementById('submit-confirm-modal').style.display = 'none';
     }
 
@@ -1036,30 +1251,35 @@
       let scoreShi = 0; 
       let wrongQuestions = []; 
 
-      quizData.forEach((q, index) => {
+      activeQuestions.forEach((q, index) => {
         const isCorrect = selectedAnswers[index] === q.correct;
         
         const gridMark = document.getElementById(`grid-mark-${index}`);
         const gridScore = document.getElementById(`grid-score-${index}`);
-        gridScore.innerText = `${q.score}点`;
+        if (gridScore) gridScore.innerText = `${q.score}点`;
 
-        if (isCorrect) {
-          score += q.score;
-          if (q.category === 'chi') scoreChi += q.score;
-          if (q.category === 'shi') scoreShi += q.score;
+        if (gridMark) {
+          if (isCorrect) {
+            score += q.score;
+            if (q.category === 'chi') scoreChi += q.score;
+            if (q.category === 'shi') scoreShi += q.score;
 
-          gridMark.className = "flex justify-center items-center h-12 text-blue-500 text-4xl font-extrabold select-none";
-          gridMark.innerHTML = "○";
-        } else {
-          wrongQuestions.push(index); 
-          gridMark.className = "flex justify-center items-center h-12 text-red-500 text-4xl font-extrabold select-none";
-          gridMark.innerHTML = "×";
+            gridMark.className = "flex justify-center items-center h-12 text-blue-500 text-4xl font-extrabold select-none";
+            gridMark.innerHTML = "○";
+          } else {
+            // 【修正】：シャッフルされた問題の元の番号（手順インデックス）に連動して弱点を記録
+            // 元データとの整合性のために質問テキスト部分で一致判定します
+            const originIndex = quizData.findIndex(originQ => originQ.question === q.question);
+            wrongQuestions.push(originIndex !== -1 ? originIndex : index); 
+
+            gridMark.className = "flex justify-center items-center h-12 text-red-500 text-4xl font-extrabold select-none";
+            gridMark.innerHTML = "×";
+          }
         }
       });
 
-      // 成果を記録
       finalScore = score;
-      isTestCompleted = true; // 完了フラグ
+      isTestCompleted = true; 
 
       changeScreen('screen-test', 'screen-result', 'block');
 
@@ -1074,6 +1294,7 @@
         circle.style.strokeDashoffset = offset;
       }
 
+      // 【AIの動的カルテ診断・類題生成】
       generateAIChallenge(wrongQuestions);
 
       const commentEl = document.getElementById('result-comment');
@@ -1081,15 +1302,29 @@
         commentEl.innerText = "素晴らしい！全問正解です。顕微鏡の準備から観察、高倍率時の注意点まで完全にマスターできました！";
         setTimeout(() => {
           openStampModal();
+          playFanfare(); 
         }, 500);
       } else {
-        commentEl.innerText = "テストお疲れ様でした！間違えた問題の解説リストが下に表示されています。よく読んで完璧に復習しましょう。";
+        // AI先生の動的テキスト生成に基づいてコメントを更新します
+        let aiDiagnosticMessage = "";
+        const weakPoints = [];
+        if (wrongQuestions.includes(0)) weakPoints.push("「低倍率から開始するルール」");
+        if (wrongQuestions.includes(1)) weakPoints.push("「プレパラートの設置位置」");
+        if (wrongQuestions.includes(2) || wrongQuestions.includes(3)) weakPoints.push("「真横から見て近づけ、遠ざけながらピントを合わせる安全手順」");
+        if (wrongQuestions.includes(4)) weakPoints.push("「視野を動かすときの上下左右反転の法則」");
+        if (wrongQuestions.includes(5)) weakPoints.push("「高倍率時の視野の暗さと狭さ」");
+        
+        aiDiagnosticMessage = `AI先生の分析：あなたは ${weakPoints.join(' と ')} に少し弱点があるようです。間違いは脳が成長する最大のチャンス！しっかり解説を読んで、下にあるAI再チャレンジ問題で克服しましょう。`;
+        commentEl.innerText = aiDiagnosticMessage;
+        
+        playCorrectSound(); 
       }
 
       const listContainer = document.getElementById('result-list');
+      if (!listContainer) return;
       listContainer.innerHTML = '';
 
-      quizData.forEach((q, index) => {
+      activeQuestions.forEach((q, index) => {
         const isCorrect = selectedAnswers[index] === q.correct;
         const card = document.createElement('div');
         card.id = `explain-card-${index}`; 
@@ -1119,6 +1354,7 @@
     }
 
     function scrollToQuestion(index) {
+      playTapSound();
       const target = document.getElementById(`explain-card-${index}`);
       if (target) {
         target.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1132,6 +1368,8 @@
       const section = document.getElementById('ai-rechallenge-section');
       const container = document.getElementById('ai-rechallenge-container');
       
+      if (!section || !container) return;
+
       if (wrongQuestions.length === 0) {
         section.style.display = 'none';
         return;
@@ -1179,17 +1417,24 @@
       const feedbackEl = document.getElementById(`ai-feedback-${qIndex}`);
       const choicesContainer = document.getElementById(`ai-choices-${qIndex}`);
 
+      if (!choicesContainer) return;
       const buttons = choicesContainer.querySelectorAll('button');
       buttons.forEach(btn => btn.disabled = true);
 
       if (selectedIndex === correctIndex) {
-        feedbackEl.className = "text-[11px] font-bold p-3 bg-emerald-50 rounded-xl border border-emerald-100 leading-relaxed text-emerald-800 animate-check-pop";
-        feedbackEl.innerHTML = `🎉 <strong>正解！</strong> ${feedbackText}`;
+        playCorrectSound(); 
+        if (feedbackEl) {
+          feedbackEl.className = "text-[11px] font-bold p-3 bg-emerald-50 rounded-xl border border-emerald-100 leading-relaxed text-emerald-800 animate-check-pop";
+          feedbackEl.innerHTML = `🎉 <strong>正解！</strong> ${feedbackText}`;
+        }
       } else {
-        feedbackEl.className = "text-[11px] font-bold p-3 bg-red-50 rounded-xl border border-red-100 leading-relaxed text-red-700 animate-check-pop";
-        feedbackEl.innerHTML = `❌ <strong>不正解！</strong> ${feedbackText}`;
+        playIncorrectSound(); 
+        if (feedbackEl) {
+          feedbackEl.className = "text-[11px] font-bold p-3 bg-red-50 rounded-xl border border-red-100 leading-relaxed text-red-700 animate-check-pop";
+          feedbackEl.innerHTML = `❌ <strong>不正解！</strong> ${feedbackText}`;
+        }
       }
-      feedbackEl.classList.remove('hidden');
+      if (feedbackEl) feedbackEl.classList.remove('hidden');
     }
 
     function openStampModal() {
@@ -1199,14 +1444,17 @@
         seal.classList.remove('animate-stamp-slam');
         void seal.offsetWidth; 
         seal.classList.add('animate-stamp-slam');
+        playStampSound(); 
       }
     }
 
     function closeStampModal() {
+      playTapSound();
       document.getElementById('stamp-modal').style.display = 'none';
     }
 
     function showResultsDirectly() {
+      playPopupSound();
       changeScreen('screen-home', 'screen-result', 'block');
       const circle = document.getElementById('score-circle');
       if (circle) {
@@ -1217,14 +1465,17 @@
     }
 
     function goHome() {
+      playTapSound();
       renderHomeScreen();
       changeScreen('screen-result', 'screen-home', 'flex');
     }
 
+    // 【確実に一瞬で起動する初期化処理】
     function init() {
       renderHomeScreen(); 
     }
 
+    // 起動開始
     initLiff();
   </script>
 </body>
