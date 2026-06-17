@@ -72,27 +72,35 @@
     </div>
 </div>
 
-<!-- 読み込み順序に注意：必ず data.js を先に読み込む -->
-<script src="data.js"></script>
 <script>
-    const todoList = document.getElementById('todo-list');
-    const doneList = document.getElementById('done-list');
-    
-    // データがあれば表示する
-    const todoItems = testData.filter(item => item.status === 'todo');
-    const doneItems = testData.filter(item => item.status === 'done');
+    // 【問題データ】ここに直接書くことで、GitHub上の読み込みエラーを100%回避します
+    const testData = [
+        { "id": 1, "title": "社会：時差の基本（1〜5問）", "status": "todo" },
+        { "id": 2, "title": "社会：時差の計算（6〜10問）", "status": "todo" },
+        { "id": 3, "title": "社会：時差の応用（11〜15問）", "status": "todo" },
+        { "id": 4, "title": "過去問：世界と日本", "status": "done" }
+    ];
 
-    if(todoItems.length > 0) {
-        todoList.innerHTML = todoItems.map(item => `
-            <div class="item-row"><span>${item.title}</span><button style="background:#f39b40;">テストルームへ</button></div>
-        `).join('');
-    }
+    // 表示処理
+    document.addEventListener('DOMContentLoaded', () => {
+        const todoList = document.getElementById('todo-list');
+        const doneList = document.getElementById('done-list');
+        
+        const todoItems = testData.filter(item => item.status === 'todo');
+        const doneItems = testData.filter(item => item.status === 'done');
 
-    if(doneItems.length > 0) {
-        doneList.innerHTML = doneItems.map(item => `
-            <div class="item-row"><span>${item.title}</span><button style="background:#50a8e0;">結果へ</button></div>
-        `).join('');
-    }
+        if(todoItems.length > 0) {
+            todoList.innerHTML = todoItems.map(item => `
+                <div class="item-row"><span>${item.title}</span><button style="background:#f39b40;">テストルームへ</button></div>
+            `).join('');
+        }
+
+        if(doneItems.length > 0) {
+            doneList.innerHTML = doneItems.map(item => `
+                <div class="item-row"><span>${item.title}</span><button style="background:#50a8e0;">結果へ</button></div>
+            `).join('');
+        }
+    });
 </script>
 
 </body>
