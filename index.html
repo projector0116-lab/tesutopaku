@@ -2,65 +2,98 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>テストパーク</title>
     <style>
         body { margin: 0; padding: 0; font-family: sans-serif; background: #d0f0f5; min-height: 100vh; }
-        header { position: fixed; top: 0; width: 100%; height: 70px; background: rgba(255,255,255,0.7); backdrop-filter: blur(5px); display: flex; align-items: center; padding: 0 20px; box-shadow: 0 1px 5px rgba(0,0,0,0.05); z-index: 100; }
-        .back-btn { background: rgba(255,255,255,0.8); border: 1px solid rgba(0,0,0,0.1); padding: 8px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px; color: #000; }
+        
+        header { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 70px;
+            background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(5px);
+            display: flex; align-items: center; padding: 0 20px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.05); z-index: 100;
+        }
+
+        .back-btn { 
+            background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0,0,0,0.1); 
+            padding: 8px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; 
+            display: flex; align-items: center; gap: 8px; color: #000;
+        }
+        
         .main-wrapper { margin-top: 100px; padding: 0 20px; }
         .container { display: flex; gap: 20px; max-width: 1000px; margin: 0 auto; flex-wrap: wrap; }
+        
         .card { flex: 1 1 400px; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .card-header-bar { padding: 15px 20px; color: white; font-weight: bold; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
         .orange-bg { background-color: #f39b40; }
         .blue-bg { background-color: #50a8e0; }
+        
         .card-content { padding: 10px; min-height: 300px; }
         .item-row { padding: 15px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
-        button { border: none; color: white; padding: 8px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; }
+        .empty-msg { text-align: center; color: #888; margin-top: 50px; }
+        
+        button { border: none; color: white; padding: 8px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
 <header>
-    <button class="back-btn" onclick="location.href='https://projector0116-lab.github.io/jikanwarietsuran/'">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-        前に戻る
-    </button>
-    <span style="font-weight: bold; font-size: 1.2rem; margin-left: 20px;">ホーム</span>
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <button class="back-btn" onclick="location.href='https://projector0116-lab.github.io/jikanwarietsuran/'">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            前に戻る
+        </button>
+        <span style="font-weight: bold; font-size: 1.2rem; color: #333; margin-left: 10px;">ホーム</span>
+    </div>
 </header>
 
 <div class="main-wrapper">
     <div class="container">
+        <!-- これからやるテスト -->
         <div class="card">
-            <div class="card-header-bar orange-bg">これからやるテスト</div>
-            <div class="card-content" id="todo-list"></div>
+            <div class="card-header-bar orange-bg">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                これからやるテスト
+            </div>
+            <div class="card-content" id="todo-list"><div class="empty-msg">テストはまだありません</div></div>
         </div>
+
+        <!-- 実施済みのテスト -->
         <div class="card">
-            <div class="card-header-bar blue-bg">実施済みのテスト</div>
-            <div class="card-content" id="done-list"></div>
+            <div class="card-header-bar blue-bg">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                実施済みのテスト
+            </div>
+            <div class="card-content" id="done-list"><div class="empty-msg">実施済みのテストはまだありません</div></div>
         </div>
     </div>
 </div>
 
+<!-- 読み込み順序に注意：必ず data.js を先に読み込む -->
+<script src="data.js"></script>
 <script>
-    fetch('data.json')
-        .then(response => response.json())
-        .then(data => {
-            const todoList = document.getElementById('todo-list');
-            const doneList = document.getElementById('done-list');
-            
-            // data.jsonの最初の数個をテスト項目として表示
-            data.filter(item => item.title).forEach(item => {
-                const parent = item.status === 'todo' ? todoList : doneList;
-                parent.innerHTML += `
-                    <div class="item-row">
-                        <span>${item.title}</span>
-                        <button style="background:${item.status === 'todo' ? '#f39b40' : '#50a8e0'};">
-                            ${item.status === 'todo' ? 'テストルームへ' : '結果へ'}
-                        </button>
-                    </div>
-                `;
-            });
-        });
+    const todoList = document.getElementById('todo-list');
+    const doneList = document.getElementById('done-list');
+    
+    // データがあれば表示する
+    const todoItems = testData.filter(item => item.status === 'todo');
+    const doneItems = testData.filter(item => item.status === 'done');
+
+    if(todoItems.length > 0) {
+        todoList.innerHTML = todoItems.map(item => `
+            <div class="item-row"><span>${item.title}</span><button style="background:#f39b40;">テストルームへ</button></div>
+        `).join('');
+    }
+
+    if(doneItems.length > 0) {
+        doneList.innerHTML = doneItems.map(item => `
+            <div class="item-row"><span>${item.title}</span><button style="background:#50a8e0;">結果へ</button></div>
+        `).join('');
+    }
 </script>
+
 </body>
 </html>
