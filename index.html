@@ -7,7 +7,7 @@
     <style>
         /* --- 全体ベース --- */
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { margin: 0; padding: 0; font-family: sans-serif; background: #d0f0f5; height: 100vh; overflow: hidden; color: #333; }
+        body { margin: 0; padding: 0; font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif; background: #d0f0f5; height: 100vh; overflow: hidden; color: #333; }
         body.ruby-off rt { display: none; }
 
         .screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; }
@@ -22,31 +22,47 @@
         }
         .back-btn { 
             background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0,0,0,0.1); 
-            padding: 8px 15px; border-radius: 40px; cursor: pointer; font-weight: bold; 
+            padding: 10px 20px; border-radius: 40px; cursor: pointer; font-weight: bold; 
             display: flex; align-items: center; gap: 8px; color: #000; text-decoration: none;
         }
 
-        /* --- 教科カラー --- */
-        .color-sc { background: linear-gradient(135deg, #00b050 0%, #009944 100%) !important; color: white !important; }
-        .color-ss { background: linear-gradient(135deg, #f7ac5d 0%, #f39b40 100%) !important; color: white !important; }
+        /* --- 画像再現：教科バッジデザイン --- */
+        .subject-badge-home {
+            background-color: #00b050; /* 画像2枚目の理科の緑 */
+            color: white !important;
+            padding: 2px 8px;
+            border-radius: 4px; /* 四角すぎず丸すぎない角丸 */
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            line-height: 1.4;
+        }
+        .color-jp { background-color: #e60012; }
+        .color-ma { background-color: #1a447a; }
+        .color-sc { background-color: #00b050; }
+        .color-ss { background-color: #f39b40; }
 
-        /* --- ホーム画面 --- */
+        /* --- ホーム画面レイアウト --- */
         .main-wrapper { margin-top: 100px; padding: 0 20px; width: 100%; overflow-y: auto; flex: 1; }
-        .container { display: flex; gap: 20px; max-width: 800px; margin: 0 auto; padding-bottom: 40px; justify-content: center; flex-direction: column; }
+        .container { display: flex; gap: 20px; max-width: 900px; margin: 0 auto; padding-bottom: 40px; flex-direction: column; }
         .card { flex: 1 1 100%; background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%; }
         .card-header-bar { padding: 15px 20px; color: white; font-weight: bold; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; background: #f39b40; }
-        .item-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 20px; }
-
-        .btn-round { border: none; padding: 12px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; color: white; transition: 0.1s; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; font-size: 0.9rem; }
-        .btn-orange { background: #f39b40; }
-        .btn-navy { background: #1a447a; }
+        .item-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 18px 20px; }
+        
+        /* ホーム画面用ボタン：画像2枚目再現 */
+        .btn-round { border: none; padding: 8px 22px; border-radius: 50px; cursor: pointer; font-weight: bold; color: white !important; transition: 0.1s; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; font-size: 0.85rem; }
+        .btn-orange { background-color: #f39b40; }
+        .btn-blue { background-color: #2c4b8e; } /* 画像の「回答を見る」の濃紺 */
 
         /* --- シルエットアイコン --- */
         .svg-icon { stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
         /* --- 演出オーバーレイ --- */
         #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #a2d2e5; z-index: 2000; display: none; align-items: center; justify-content: center; }
-        .white-modal { background: white; padding: 40px 30px; border-radius: 20px; box-shadow: 0 4px 25px rgba(0,0,0,0.15); text-align: center; width: 450px; }
+        .white-modal { background: white; padding: 40px 30px; border-radius: 20px; box-shadow: 0 4px 25px rgba(0,0,0,0.15); text-align: center; width: 420px; }
         .progress-fill-dl { height: 16px; background: #f39b40; width: 0%; border-radius: 8px; transition: width 0.3s; }
         #countdown-num { font-size: 80px; font-weight: bold; color: #e60012; margin-top: 10px; display: inline-block; opacity: 0; }
         .pop-anim { animation: gwa 0.7s ease-out forwards; }
@@ -67,11 +83,10 @@
 
         .quiz-body-wrapper { flex: 1; position: relative; overflow: hidden; margin: 5px 10px; }
         .quiz-body { display: flex; width: 100%; height: 100%; background: white; border-radius: 15px; overflow: hidden; border: 1px solid #ddd; position: absolute; top: 0; left: 0; }
-
-        /* スライドアニメーション演出 */
+        
+        /* スライドアニメーション：次へは右から、前へは左から */
         .slide-in-right { animation: slideInRight 0.4s ease-out forwards; }
         @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        
         .slide-in-left { animation: slideInLeft 0.4s ease-out forwards; }
         @keyframes slideInLeft { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
@@ -80,6 +95,10 @@
         .answer-option { display: block; width: 100%; background: white; border: 2px solid #ddd; padding: 18px; margin-bottom: 12px; border-radius: 20px; text-align: left; font-size: 1rem; cursor: pointer; color: #333; font-weight: bold; }
         .answer-option.selected { border-color: #f39b40; background: #fff9f0; }
         .answer-input-box { width: 100%; padding: 20px; border: 2px solid #ddd; border-radius: 20px; font-size: 1.2rem; font-weight: bold; margin-bottom: 15px; outline: none; }
+
+        .review-label { font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; color: #666; }
+        .user-ans-box { padding: 15px; background: #eee; border-radius: 10px; margin-bottom: 20px; font-weight: bold; }
+        .correct-ans-box { padding: 15px; background: #fff0f0; border: 2px solid #e60012; border-radius: 10px; color: #e60012; font-weight: bold; }
 
         #memo-canvas { position: absolute; top: 0; left: 0; pointer-events: none; z-index: 10; touch-action: none; }
         #memo-canvas.active { pointer-events: auto; }
@@ -102,15 +121,17 @@
         .score-donut { position: relative; width: 160px; height: 160px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center; }
         .score-inner { width: 130px; height: 130px; background: white; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold; }
         .score-num { font-size: 3rem; color: #f39b40; }
-        .retry-track { width: 100%; height: 14px; background: #eee; border-radius: 10px; margin: 20px 0; position: relative; }
-        .retry-char-icon { position: absolute; top: -30px; transform: translateX(-50%); transition: left 0.5s ease; }
-        .btn-retry-all-main { background: #f39b40; color: white !important; border: none; width: 100%; padding: 15px; border-radius: 40px; font-weight: bold; cursor: pointer; font-size: 1rem; margin-top: 10px; }
+        
+        .retry-track { width: 100%; height: 14px; background: #eee; border-radius: 10px; margin: 40px 0 20px 0; position: relative; overflow: visible; }
+        .retry-fill { position: absolute; top: 0; left: 0; height: 100%; background: #1a447a; border-radius: 10px; transition: width 0.5s ease; width: 0%; }
+        .retry-char-icon { position: absolute; top: -32px; transform: translateX(-50%); transition: left 0.5s ease; z-index: 5; }
+        .btn-retry-all-main { background: #f39b40; color: white !important; border: none; width: 100%; padding: 15px; border-radius: 40px; font-weight: bold; cursor: pointer; font-size: 1.1rem; margin-top: 10px; }
 
         .score-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(105px, 1fr)); gap: 10px; padding: 20px; max-width: 1000px; margin: 0 auto; }
         .grid-item { background: white; border-radius: 12px; overflow: hidden; border: 1px solid #ddd; text-align: center; cursor: pointer; }
         .grid-header { font-size: 0.75rem; color: white; display: flex; justify-content: space-between; padding: 6px 10px; font-weight: bold; background: #444; }
         .grid-mark { font-size: 2.2rem; font-weight: bold; padding: 12px 0; }
-        .blue-circle { color: #1a447a !important; } /* 時直し正解用の青丸 */
+        .blue-circle { color: #1a447a !important; }
         .red-item .grid-header { background: #e60012; }
         .red-item .grid-mark { color: #e60012; }
 
@@ -129,6 +150,10 @@
             前に戻る
         </div>
         <span style="font-weight: bold; font-size: 1.2rem; margin-left: 20px;">ホーム</span>
+        <div style="margin-left: auto; display: flex; gap: 15px;">
+            <svg class="svg-icon" width="24" height="24" viewBox="0 0 24 24" style="stroke:#333;"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <svg class="svg-icon" width="24" height="24" viewBox="0 0 24 24" style="stroke:#333;"><circle cx="12" cy="7" r="4"/><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/></svg>
+        </div>
     </header>
     <div class="main-wrapper">
         <div class="container">
@@ -144,7 +169,7 @@
 <div id="overlay">
     <div id="dl-card" class="white-modal">
         <div style="font-weight: bold; font-size: 1.1rem;">テスト開始まで待ってください。</div>
-        <div class="progress-container"><div id="progress-bar-fill" class="progress-fill-dl"></div></div>
+        <div class="progress-container" style="margin:25px 0;"><div id="progress-bar-fill" class="progress-fill-dl"></div></div>
         <div style="font-size: 0.85rem; color: #666;">テストを準備中...</div>
     </div>
     <div id="cd-card" class="white-modal" style="display:none; width:180px;">
@@ -195,15 +220,16 @@
             <div class="result-main-left">
                 <div class="score-donut" id="score-donut-el"><div class="score-inner"><div id="final-score" class="score-num">0</div><div>/ 100</div></div></div>
                 <div style="flex:1; padding-left:20px;">
-                    <div><span id="result-subject-tag" class="subject-badge-footer" style="padding:2px 10px; border-radius:5px;">理科</span><span id="result-title-label" style="font-weight:bold; font-size:1.2rem; margin-left:10px;">顕微鏡の使い方</span></div>
-                    <div style="font-size:0.8rem; color:#666; margin-top:8px;" id="result-time-txt">解答時間：--分</div>
+                    <div><span id="result-subject-tag" class="subject-badge-home color-sc">教科</span><span id="result-title-label" style="font-weight:bold; font-size:1.2rem; margin-left:5px;">テスト名</span></div>
+                    <div style="font-size:0.8rem; color:#666; margin-top:12px;" id="result-time-txt">解答時間：--分</div>
                 </div>
             </div>
             <div class="result-main-right">
                 <div style="font-weight:bold; font-size:0.9rem; display:flex; justify-content:space-between;"><span>解き直し</span><span id="wrong-count-display">再チャレンジ問題 0問</span></div>
                 <div class="retry-track">
+                    <div id="retry-fill-bar" class="retry-fill"></div>
                     <div class="retry-char-icon" id="character-pos">
-                        <svg class="svg-icon" width="24" height="24" style="stroke:#333;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
+                        <svg class="svg-icon" width="24" height="24" style="stroke:#333;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 5"/></svg>
                     </div>
                 </div>
                 <button class="btn-retry-all-main" onclick="startRetry()">まとめて見直し →</button>
@@ -214,13 +240,23 @@
     </div>
 </div>
 
-<script>
-    function strip(html) { const d = document.createElement("div"); d.innerHTML = html; return d.textContent || d.innerText || ""; }
+<div id="review-modal"><div class="modal-card">
+    <div id="review-q-txt" style="font-weight:bold; margin-bottom:15px; text-align:left;"></div>
+    <div style="text-align:left; background:#f8f9fa; padding:15px; border-radius:10px; margin-bottom:10px;">あなたの回答：<span id="review-user-ans"></span></div>
+    <div style="text-align:left; background:#fff0f0; padding:15px; border-radius:10px; color:#e60012; font-weight:bold;">正解：<span id="review-correct-ans"></span></div>
+    <button class="btn-round btn-orange" style="width:100%; margin-top:15px;" onclick="document.getElementById('review-modal').style.display='none'">とじる</button>
+</div></div>
 
+<div id="settings-menu"><div style="font-weight:bold; margin-bottom:10px;">表示設定</div><label style="display:flex; align-items:center; gap:10px; cursor:pointer; font-weight:bold;"><input type="checkbox" id="ruby-toggle" onchange="updateRuby()"> ふりがなを表示する</label></div>
+
+<script>
+    function strip(html) { const d = document.createElement("div"); d.innerHTML = html; return (d.textContent || d.innerText || "").replace(/\s/g,''); }
+
+    // --- テストデータ集 ---
     const microscopeQuestions = [
       { q: "<ruby>顕微鏡<rt>けんびきょう</rt></ruby>を<ruby>準備<rt>じゅんび</rt></ruby>するとき、<ruby>最初<rt>さいしょ</rt></ruby>に付けるレンズは？", type: "choice", opts: ["対物レンズ", "接眼レンズ", "ルーペ", "凹面鏡"], ans: "接眼レンズ" },
-      { q: "レンズの<ruby>中<rt>なか</rt></ruby>で、<ruby>観察<rt>かんさつ</rt></ruby>する物体に近い方のレンズを何という？", type: "input", ans: "対物レンズ" },
-      { q: "明るさを調節するものをすべて選びなさい。", type: "multi", opts: ["反射鏡", "絞り", "調節ねじ", "レボルバー"], ans: ["反射鏡", "絞り"] },
+      { q: "レンズの中で、<ruby>観察<rt>かんさつ</rt></ruby>する物体に近い方のレンズを何といいますか？", type: "input", ans: "対物レンズ" },
+      { q: "<ruby>顕微鏡<rt>けんびきょう</rt></ruby>の明るさを調節するために使うものをすべて選びなさい。", type: "multi", opts: ["反射鏡", "絞り", "調節ねじ", "レボルバー"], ans: ["反射鏡", "絞り"] },
       { q: "接眼レンズが10倍、対物レンズが40倍のとき、全体の倍率は何倍ですか？", type: "choice", opts: ["10倍", "40倍", "50倍", "400倍"], ans: "400倍" },
       { q: "対物レンズの倍率を変えるときに回転させる部分を何といいますか？", type: "input", ans: "レボルバー" },
       { q: "顕微鏡を持ち運ぶときに持つべき部分をすべて選びなさい。", type: "multi", opts: ["アーム", "鏡台", "鏡筒", "ステージ"], ans: ["アーム", "鏡台"] },
@@ -236,42 +272,45 @@
       { q: "低倍率と高倍率を比べたとき、視野に見える範囲がより広いのはどちらですか？", type: "choice", opts: ["低倍率", "高倍率", "どちらも同じ", "反射鏡による"], ans: "低倍率" }
     ];
 
-    const allTests = [{ id: "sci_micro", subject: "理科", title: "顕微鏡の使い方16問", questions: microscopeQuestions }];
+    const burnerQuestions = [
+      { q: "ガスバーナーの<ruby>上側<rt>うえがわ</rt></ruby>にあるねじは？", type: "choice", opts: ["ガス調節ねじ", "空気調節ねじ", "元栓"], ans: "空気調節ねじ" },
+      { q: "ガスバーナーの<ruby>下側<rt>したがわ</rt></ruby>にあるねじは？", type: "input", ans: "ガス調節ねじ" },
+      { q: "マッチを近づけるタイミングとして正しいものは？", type: "choice", opts: ["ガスねじを開ける前", "ガスねじを開けた後", "元栓を開ける前"], ans: "ガスねじを開ける前" },
+      { q: "ガスの量に対して空気が不足しているとき、炎は何色になる？", type: "input", ans: "黄色" }
+    ];
+    while(burnerQuestions.length < 16) burnerQuestions.push({q:`第${burnerQuestions.length+1}問：練習。`, type:"choice", opts:["正解","誤答"], ans:"正解"});
+
+    const allTests = [
+      { id: "sci_micro", subject: "理科", title: "顕微鏡の使い方16問", questions: microscopeQuestions },
+      { id: "sci_burner", subject: "理科", title: "ガスバーナーの使い方16問", questions: burnerQuestions }
+    ];
+
     const subjectColors = { "理科": "color-sc", "社会": "color-ss" };
-
     let currentTest = null, activeQuestions = [], userAnswers = [], correctedFlags = [];
-    let currentIdx = 0, startTime, toolMode = 'none', isReviewMode = false, countTimer = null;
+    let currentIdx = 0, startTime, toolMode = 'none', isDetailView = false, countTimer = null;
 
-    function saveData() { localStorage.setItem('tp_ans_'+currentTest.id, JSON.stringify(userAnswers)); localStorage.setItem('tp_flags_'+currentTest.id, JSON.stringify(correctedFlags)); localStorage.setItem('tp_sub_'+currentTest.id, currentTest.submitted); }
-    function loadTestStatus(test) {
-        const a = localStorage.getItem('tp_ans_'+test.id), s = localStorage.getItem('tp_sub_'+test.id), f = localStorage.getItem('tp_flags_'+test.id);
-        test.userAnswers = a ? JSON.parse(a) : Array(test.questions.length).fill(null);
-        test.correctedFlags = f ? JSON.parse(f) : Array(test.questions.length).fill(false);
-        test.submitted = (s === 'true');
-    }
+    function saveData() { localStorage.setItem('tp_ans_final_'+currentTest.id, JSON.stringify(userAnswers)); localStorage.setItem('tp_flags_final_'+currentTest.id, JSON.stringify(correctedFlags)); localStorage.setItem('tp_sub_final_'+currentTest.id, currentTest.submitted); }
+    function loadTestStatus(test) { const a = localStorage.getItem('tp_ans_final_'+test.id), s = localStorage.getItem('tp_sub_final_'+test.id), f = localStorage.getItem('tp_flags_final_'+test.id); test.userAnswers = a ? JSON.parse(a) : Array(test.questions.length).fill(null); test.correctedFlags = f ? JSON.parse(f) : Array(test.questions.length).fill(false); test.submitted = (s === 'true'); }
 
     function renderHome() {
         const area = document.getElementById('test-list-area'); area.innerHTML = '';
         allTests.forEach(test => {
             loadTestStatus(test);
             const colorClass = subjectColors[test.subject] || "color-ss";
-            let btns = test.submitted 
-                ? `<button class="btn-round btn-blue" onclick="openResults('${test.id}')" style="margin-right:10px;">回答を見る</button><button class="btn-round btn-orange" onclick="startFlow('${test.id}')">再挑戦</button>`
-                : `<button class="btn-round btn-orange" onclick="startFlow('${test.id}')">テストルームへ</button>`;
-            area.innerHTML += `<div class="item-row"><span>${test.title}</span><div>${btns}</div></div>`;
+            let btns = test.submitted ? `<button class="btn-round btn-blue" onclick="openResults('${test.id}')" style="margin-right:10px;">回答を見る</button><button class="btn-round btn-orange" onclick="startFlow('${test.id}')">再挑戦</button>` : `<button class="btn-round btn-orange" onclick="startFlow('${test.id}')">テストルームへ</button>`;
+            area.innerHTML += `<div class="item-row"><div><span class="subject-badge-home ${colorClass}">${test.subject}</span><span>${test.title}</span></div><div>${btns}</div></div>`;
         });
     }
 
     async function startFlow(id) {
-        currentTest = allTests.find(t => t.id === id);
-        userAnswers = Array(currentTest.questions.length).fill(null);
-        correctedFlags = Array(currentTest.questions.length).fill(false);
+        currentTest = allTests.find(t => t.id === id); userAnswers = Array(currentTest.questions.length).fill(null); correctedFlags = Array(currentTest.questions.length).fill(false);
         currentTest.submitted = false; saveData();
         document.getElementById('overlay').style.display = 'flex';
         const bar = document.getElementById('progress-bar-fill'); bar.style.width = '0%';
         for(let i=0; i<=100; i+=25) { bar.style.width = i + '%'; await new Promise(r => setTimeout(r, 100)); }
         document.getElementById('dl-card').style.display = 'none'; document.getElementById('cd-card').style.display = 'block';
-        const numEl = document.getElementById('countdown-num'); let count = 3; numEl.innerText = count; numEl.style.opacity = "1"; numEl.classList.add('pop-anim');
+        const numEl = document.getElementById('countdown-num'); numEl.innerText = "";
+        let count = 3; numEl.innerText = count; numEl.style.opacity = "1"; numEl.classList.add('pop-anim');
         if(countTimer) clearInterval(countTimer);
         countTimer = setInterval(() => {
             count--; if(count > 0) { numEl.classList.remove('pop-anim'); void numEl.offsetWidth; numEl.innerText = count; numEl.classList.add('pop-anim'); }
@@ -279,42 +318,36 @@
         }, 1000);
     }
 
-    function initQuiz(startIdx = 0, qSet = [], resetPart = false, isRetryFlow = false) {
+    function initQuiz(startIdx = 0, qSet = [], resetPart = false) {
         document.getElementById('overlay').style.display = 'none';
         document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active-screen'));
         document.getElementById('screen-quiz').classList.add('active-screen');
         activeQuestions = qSet; currentIdx = startIdx;
-        if(resetPart) { 
-            activeQuestions.forEach(q => { const i = currentTest.questions.indexOf(q); userAnswers[i] = null; });
-            saveData();
-        }
-        if(!isReviewMode) startTime = Date.now();
-        document.getElementById('quiz-submit-btn').style.display = isReviewMode ? 'none' : 'block';
-        document.getElementById('quiz-close-btn').style.display = isReviewMode ? 'block' : 'none';
+        if(resetPart) { activeQuestions.forEach(q => { const i = currentTest.questions.indexOf(q); userAnswers[i] = null; }); saveData(); }
+        if(!isDetailView) startTime = Date.now();
+        const colorClass = subjectColors[currentTest.subject] || "color-ss";
+        document.getElementById('quiz-footer-badge').className = "subject-badge-footer " + colorClass;
         document.getElementById('quiz-footer-badge').innerText = currentTest.subject;
+        document.getElementById('quiz-submit-btn').style.display = isDetailView ? 'none' : 'block';
+        document.getElementById('quiz-close-btn').style.display = isDetailView ? 'block' : 'none';
         renderQuiz(false); setTimeout(initCanvas, 100);
     }
 
     function renderQuiz(animate = true, direction = 'right') {
         const b = document.getElementById('quiz-animate-body');
-        if(animate) {
-            b.classList.remove('slide-in-right', 'slide-in-left');
-            void b.offsetWidth;
-            b.classList.add(direction === 'right' ? 'slide-in-right' : 'slide-in-left');
-        }
+        if(animate) { b.classList.remove('slide-in-right', 'slide-in-left'); void b.offsetWidth; b.classList.add(direction === 'right' ? 'slide-in-right' : 'slide-in-left'); }
         const q = activeQuestions[currentIdx];
         const gIdx = currentTest.questions.indexOf(q);
         const check = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#28a745" stroke-width="4"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
         document.getElementById('tab-container').innerHTML = activeQuestions.map((_, i) => {
-            const idx = currentTest.questions.indexOf(activeQuestions[i]);
-            const hasAns = isReviewMode ? true : userAnswers[idx] !== null;
+            const idx = currentTest.questions.indexOf(activeQuestions[i]); const hasAns = isDetailView ? true : userAnswers[idx] !== null;
             return `<div class="tab ${i===currentIdx?'active':''} ${hasAns?'answered':''}" onclick="jumpTo(${i})">問${i+1}${hasAns?check:''}</div>`;
         }).join('');
         document.getElementById('q-text').innerHTML = q.q;
         document.getElementById('curr-page').innerText = currentIdx + 1;
         document.getElementById('total-page').innerText = activeQuestions.length;
         const optArea = document.getElementById('options-container'); optArea.innerHTML = '';
-        if (isReviewMode) {
+        if (isDetailView) {
             let uAns = userAnswers[gIdx], cAns = q.ans;
             if(Array.isArray(uAns)) uAns = uAns.join(", "); if(Array.isArray(cAns)) cAns = cAns.join(", ");
             optArea.innerHTML = `<div class="review-label">あなたの回答</div><div class="user-ans-box">${uAns||'未回答'}</div><div class="review-label">正解</div><div class="correct-ans-box">${cAns}</div>`;
@@ -335,26 +368,19 @@
     function closeConfirm() { document.getElementById('confirm-modal').style.display='none'; }
     
     function processSubmit() { 
-        if(!isReviewMode && currentTest.questions.length === activeQuestions.length) {
-            // 初回提出時
-        } else {
-            // 解き直し提出時：正解したもののフラグを立てる
-            activeQuestions.forEach((q) => {
-                const i = currentTest.questions.indexOf(q);
-                const isCorrect = q.type === "multi" ? (Array.isArray(userAnswers[i]) && [...userAnswers[i]].sort().join(",") === [...q.ans].sort().join(",")) : (strip(userAnswers[i]||"").replace(/\s/g,'') === strip(q.ans).replace(/\s/g,''));
-                if(isCorrect) correctedFlags[i] = true;
-            });
-        }
+        currentTest.questions.forEach((q, i) => {
+            const isCorrect = q.type === "multi" ? (Array.isArray(userAnswers[i]) && [...userAnswers[i]].sort().join(",") === [...q.ans].sort().join(",")) : (strip(userAnswers[i]||"") === strip(q.ans));
+            if(isCorrect) correctedFlags[i] = true;
+        });
         currentTest.submitted = true; saveData(); closeConfirm(); showResultsDetail(); 
     }
 
     function showResultsDetail() {
-        document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active-screen'));
-        document.getElementById('screen-result').classList.add('active-screen');
+        document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active-screen')); document.getElementById('screen-result').classList.add('active-screen');
         const grid = document.getElementById('score-grid'); grid.innerHTML = '';
         let correctCount = 0;
         currentTest.questions.forEach((q, i) => {
-            let isCorrect = q.type === "multi" ? (Array.isArray(userAnswers[i]) && [...userAnswers[i]].sort().join(",") === [...q.ans].sort().join(",")) : (strip(userAnswers[i]||"").replace(/\s/g,'') === strip(q.ans).replace(/\s/g,''));
+            let isCorrect = q.type === "multi" ? (Array.isArray(userAnswers[i]) && [...userAnswers[i]].sort().join(",") === [...q.ans].sort().join(",")) : (strip(userAnswers[i]||"") === strip(q.ans));
             if(isCorrect) correctCount++;
             const mark = correctedFlags[i] ? '<span class="blue-circle">〇</span>' : (isCorrect ? '〇' : '×');
             grid.innerHTML += `<div class="grid-item ${isCorrect?'':'red-item'}" onclick="showOneDetail(${i})"><div class="grid-header"><span>${i+1}問</span></div><div class="grid-mark">${mark}</div></div>`;
@@ -362,31 +388,30 @@
         const score = Math.round((correctCount / currentTest.questions.length)*100);
         document.getElementById('final-score').innerText = score;
         document.getElementById('score-donut-el').style.background = `conic-gradient(#f39b40 ${score}%, #eee 0deg)`;
-        const wrongCount = currentTest.questions.filter((q, i) => !((q.type === "multi" ? (Array.isArray(userAnswers[i]) && [...userAnswers[i]].sort().join(",") === [...q.ans].sort().join(",")) : (strip(userAnswers[i]||"").replace(/\s/g,'') === strip(q.ans).replace(/\s/g,''))))).length;
+        const wrongCount = currentTest.questions.filter((q, i) => {
+            return !(q.type === "multi" ? (Array.isArray(userAnswers[i]) && [...userAnswers[i]].sort().join(",") === [...q.ans].sort().join(",")) : (strip(userAnswers[i]||"") === strip(q.ans)));
+        }).length;
         document.getElementById('wrong-count-display').innerText = `再チャレンジ問題 ${wrongCount}問`;
-        // キャラクター位置：(全問 - 残り間違い) / 全問
-        const prog = ((currentTest.questions.length - wrongCount) / currentTest.questions.length) * 100;
+        const total = currentTest.questions.length; const prog = ((total - wrongCount) / total) * 100;
         document.getElementById('character-pos').style.left = prog + '%';
+        document.getElementById('retry-fill-bar').style.width = prog + '%';
         document.getElementById('result-time-txt').innerText = `解答時間：${Math.floor((Date.now()-startTime)/60000)||1}分`;
         document.getElementById('result-title-label').innerText = currentTest.title;
+        document.getElementById('result-subject-tag').innerText = currentTest.subject;
+        document.getElementById('result-subject-tag').className = "subject-badge-home " + (subjectColors[currentTest.subject] || "color-ss");
     }
 
-    function openResults(id) { 
-        currentTest = allTests.find(t => t.id === id); 
-        userAnswers = currentTest.userAnswers; 
-        correctedFlags = currentTest.correctedFlags || Array(currentTest.questions.length).fill(false);
-        isReviewMode = false; showResultsDetail(); 
-    }
+    function openResults(id) { currentTest = allTests.find(t => t.id === id); userAnswers = currentTest.userAnswers; correctedFlags = currentTest.correctedFlags || Array(currentTest.questions.length).fill(false); isDetailView = false; showResultsDetail(); }
     function showHome() { document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active-screen')); document.getElementById('screen-home').classList.add('active-screen'); renderHome(); }
-    function showOneDetail(i) { isReviewMode = true; initQuiz(i, currentTest.questions); }
-    function backToResult() { isReviewMode = false; showResultsDetail(); }
+    function showOneDetail(i) { isDetailView = true; initQuiz(i, currentTest.questions); }
+    function backToResult() { isDetailView = false; showResultsDetail(); }
     function startRetry() {
         const wrongs = currentTest.questions.filter((q, i) => {
-            const isCorrect = q.type === "multi" ? (Array.isArray(userAnswers[i]) && [...userAnswers[i]].sort().join(",") === [...q.ans].sort().join(",")) : (strip(userAnswers[i]||"").replace(/\s/g,'') === strip(q.ans).replace(/\s/g,''));
+            const isCorrect = q.type === "multi" ? (Array.isArray(userAnswers[i]) && [...userAnswers[i]].sort().join(",") === [...q.ans].sort().join(",")) : (strip(userAnswers[i]||"") === strip(q.ans));
             return !isCorrect;
         });
         if(!wrongs.length) return alert("全問正解です！");
-        isReviewMode = false; initQuiz(0, wrongs, true, true);
+        isDetailView = false; initQuiz(0, wrongs, true);
     }
 
     const canvas = document.getElementById('memo-canvas'), ctx = canvas.getContext('2d');
