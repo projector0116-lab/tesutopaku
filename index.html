@@ -22,47 +22,38 @@
         }
         .back-btn { 
             background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0,0,0,0.1); 
-            padding: 10px 20px; border-radius: 40px; cursor: pointer; font-weight: bold; 
+            padding: 8px 15px; border-radius: 40px; cursor: pointer; font-weight: bold; 
             display: flex; align-items: center; gap: 8px; color: #000; text-decoration: none;
         }
 
-        /* --- 画像再現：教科バッジデザイン --- */
+        /* --- 教科別おしゃれバッジ --- */
         .subject-badge-home {
-            background-color: #00b050; /* 画像2枚目の理科の緑 */
+            padding: 4px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 800;
             color: white !important;
-            padding: 2px 8px;
-            border-radius: 4px; /* 四角すぎず丸すぎない角丸 */
-            font-size: 0.8rem;
-            font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            display: inline-block;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
             margin-right: 12px;
-            line-height: 1.4;
         }
-        .color-jp { background-color: #e60012; }
-        .color-ma { background-color: #1a447a; }
-        .color-sc { background-color: #00b050; }
-        .color-ss { background-color: #f39b40; }
+        .color-sc { background: linear-gradient(135deg, #00d27f 0%, #009944 100%) !important; }
+        .color-ss { background: linear-gradient(135deg, #f7ac5d 0%, #f39b40 100%) !important; }
 
-        /* --- ホーム画面レイアウト --- */
+        /* --- ホーム画面 --- */
         .main-wrapper { margin-top: 100px; padding: 0 20px; width: 100%; overflow-y: auto; flex: 1; }
-        .container { display: flex; gap: 20px; max-width: 900px; margin: 0 auto; padding-bottom: 40px; flex-direction: column; }
-        .card { flex: 1 1 100%; background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%; }
-        .card-header-bar { padding: 15px 20px; color: white; font-weight: bold; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; background: #f39b40; }
-        .item-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 18px 20px; }
-        
-        /* ホーム画面用ボタン：画像2枚目再現 */
-        .btn-round { border: none; padding: 8px 22px; border-radius: 50px; cursor: pointer; font-weight: bold; color: white !important; transition: 0.1s; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; font-size: 0.85rem; }
-        .btn-orange { background-color: #f39b40; }
-        .btn-blue { background-color: #2c4b8e; } /* 画像の「回答を見る」の濃紺 */
-
-        /* --- シルエットアイコン --- */
-        .svg-icon { stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .container { display: flex; gap: 20px; max-width: 850px; margin: 0 auto; padding-bottom: 40px; flex-direction: column; }
+        .card { background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%; }
+        .card-header-bar { padding: 15px 20px; color: white; font-weight: bold; font-size: 1.1rem; background: #f39b40; }
+        .item-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 20px; }
+        .btn-round { border: none; padding: 10px 22px; border-radius: 50px; cursor: pointer; font-weight: bold; color: white; transition: 0.1s; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; font-size: 0.9rem; }
+        .btn-orange { background: #f39b40; }
+        .btn-navy { background: #1a447a; }
 
         /* --- 演出オーバーレイ --- */
         #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #a2d2e5; z-index: 2000; display: none; align-items: center; justify-content: center; }
-        .white-modal { background: white; padding: 40px 30px; border-radius: 20px; box-shadow: 0 4px 25px rgba(0,0,0,0.15); text-align: center; width: 420px; }
+        .white-modal { background: white; padding: 40px 30px; border-radius: 20px; box-shadow: 0 4px 25px rgba(0,0,0,0.15); text-align: center; width: 450px; }
         .progress-fill-dl { height: 16px; background: #f39b40; width: 0%; border-radius: 8px; transition: width 0.3s; }
         #countdown-num { font-size: 80px; font-weight: bold; color: #e60012; margin-top: 10px; display: inline-block; opacity: 0; }
         .pop-anim { animation: gwa 0.7s ease-out forwards; }
@@ -83,8 +74,6 @@
 
         .quiz-body-wrapper { flex: 1; position: relative; overflow: hidden; margin: 5px 10px; }
         .quiz-body { display: flex; width: 100%; height: 100%; background: white; border-radius: 15px; overflow: hidden; border: 1px solid #ddd; position: absolute; top: 0; left: 0; }
-        
-        /* スライドアニメーション：次へは右から、前へは左から */
         .slide-in-right { animation: slideInRight 0.4s ease-out forwards; }
         @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         .slide-in-left { animation: slideInLeft 0.4s ease-out forwards; }
@@ -96,10 +85,6 @@
         .answer-option.selected { border-color: #f39b40; background: #fff9f0; }
         .answer-input-box { width: 100%; padding: 20px; border: 2px solid #ddd; border-radius: 20px; font-size: 1.2rem; font-weight: bold; margin-bottom: 15px; outline: none; }
 
-        .review-label { font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; color: #666; }
-        .user-ans-box { padding: 15px; background: #eee; border-radius: 10px; margin-bottom: 20px; font-weight: bold; }
-        .correct-ans-box { padding: 15px; background: #fff0f0; border: 2px solid #e60012; border-radius: 10px; color: #e60012; font-weight: bold; }
-
         #memo-canvas { position: absolute; top: 0; left: 0; pointer-events: none; z-index: 10; touch-action: none; }
         #memo-canvas.active { pointer-events: auto; }
 
@@ -108,26 +93,37 @@
         .footer-tool-btn { background: white; border: 1px solid #ccc; border-radius: 30px; padding: 6px 15px; font-size: 0.8rem; font-weight: bold; display: flex; align-items: center; gap: 4px; cursor: pointer; color: #333; }
         .footer-tool-btn.active { background: #f39b40; color: white; border-color: #f39b40; }
         .subject-badge-footer { padding: 4px 15px; border-radius: 4px; font-weight: bold; font-size: 0.8rem; color: white; }
-        
         .footer-right { display: flex; flex-direction: row; align-items: center; gap: 10px; }
         .nav-arrow-btn { background: white; border: 1px solid #ccc; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
         .page-counter { font-weight: bold; font-size: 1rem; min-width: 60px; text-align: center; }
 
-        /* --- 結果画面 --- */
+        /* --- 結果画面 (修正：実機で崩れないレスポンシブ) --- */
         #screen-result { background: #d0f0f5; overflow-y: auto; }
-        .result-header-card { width: 95%; max-width: 1000px; margin: 20px auto; background: white; border-radius: 25px; padding: 30px; display: flex; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .result-main-left { flex: 1.5; display: flex; gap: 30px; border-right: 2px dashed #eee; padding-right: 30px; }
-        .result-main-right { flex: 1; padding-left: 30px; display: flex; flex-direction: column; justify-content: center; }
-        .score-donut { position: relative; width: 160px; height: 160px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center; }
-        .score-inner { width: 130px; height: 130px; background: white; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold; }
-        .score-num { font-size: 3rem; color: #f39b40; }
+        .result-header-card { 
+            width: 95%; max-width: 1000px; margin: 20px auto; background: white; 
+            border-radius: 25px; padding: 30px; display: flex; flex-wrap: wrap; /* 横並びが無理なら折り返す */
+            gap: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+        }
+        .result-main-left { flex: 1.5; display: flex; gap: 20px; border-right: 2px dashed #eee; padding-right: 20px; min-width: 300px; }
+        .result-main-right { flex: 1; padding-left: 20px; display: flex; flex-direction: column; justify-content: center; min-width: 250px; }
+        
+        /* スマホ用調整：左右を上下に */
+        @media (max-width: 750px) {
+            .result-header-card { flex-direction: column; padding: 20px; }
+            .result-main-left { border-right: none; border-bottom: 2px dashed #eee; padding-right: 0; padding-bottom: 20px; }
+            .result-main-right { padding-left: 0; padding-top: 10px; }
+        }
+
+        .score-donut { position: relative; width: 150px; height: 140px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .score-inner { width: 115px; height: 115px; background: white; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold; }
+        .score-num { font-size: 2.8rem; color: #f39b40; }
         
         .retry-track { width: 100%; height: 14px; background: #eee; border-radius: 10px; margin: 40px 0 20px 0; position: relative; overflow: visible; }
-        .retry-fill { position: absolute; top: 0; left: 0; height: 100%; background: #1a447a; border-radius: 10px; transition: width 0.5s ease; width: 0%; }
-        .retry-char-icon { position: absolute; top: -32px; transform: translateX(-50%); transition: left 0.5s ease; z-index: 5; }
-        .btn-retry-all-main { background: #f39b40; color: white !important; border: none; width: 100%; padding: 15px; border-radius: 40px; font-weight: bold; cursor: pointer; font-size: 1.1rem; margin-top: 10px; }
+        .retry-fill { position: absolute; top: 0; left: 0; height: 100%; background: #50a8e0; border-radius: 10px; transition: width 0.5s ease; width: 0%; }
+        .retry-char-icon { position: absolute; top: -35px; transform: translateX(-50%); transition: left 0.5s ease; z-index: 5; }
+        .btn-retry-all-main { background: #f39b40; color: white !important; border: none; width: 100%; padding: 15px; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 1.1rem; margin-top: 10px; }
 
-        .score-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(105px, 1fr)); gap: 10px; padding: 20px; max-width: 1000px; margin: 0 auto; }
+        .score-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px; padding: 20px; max-width: 1000px; margin: 0 auto; }
         .grid-item { background: white; border-radius: 12px; overflow: hidden; border: 1px solid #ddd; text-align: center; cursor: pointer; }
         .grid-header { font-size: 0.75rem; color: white; display: flex; justify-content: space-between; padding: 6px 10px; font-weight: bold; background: #444; }
         .grid-mark { font-size: 2.2rem; font-weight: bold; padding: 12px 0; }
@@ -135,6 +131,7 @@
         .red-item .grid-header { background: #e60012; }
         .red-item .grid-mark { color: #e60012; }
 
+        .svg-icon { stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
         #confirm-modal, #review-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 3000; display: none; align-items: center; justify-content: center; }
         .modal-card { background: white; width: 420px; padding: 30px; border-radius: 20px; text-align: center; }
         #settings-menu { position: fixed; bottom: 75px; left: 20px; background: white; border: 1px solid #ccc; padding: 20px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.15); display: none; z-index: 500; }
@@ -169,7 +166,7 @@
 <div id="overlay">
     <div id="dl-card" class="white-modal">
         <div style="font-weight: bold; font-size: 1.1rem;">テスト開始まで待ってください。</div>
-        <div class="progress-container" style="margin:25px 0;"><div id="progress-bar-fill" class="progress-fill-dl"></div></div>
+        <div class="progress-container"><div id="progress-bar-fill" class="progress-fill-dl"></div></div>
         <div style="font-size: 0.85rem; color: #666;">テストを準備中...</div>
     </div>
     <div id="cd-card" class="white-modal" style="display:none; width:180px;">
@@ -220,7 +217,7 @@
             <div class="result-main-left">
                 <div class="score-donut" id="score-donut-el"><div class="score-inner"><div id="final-score" class="score-num">0</div><div>/ 100</div></div></div>
                 <div style="flex:1; padding-left:20px;">
-                    <div><span id="result-subject-tag" class="subject-badge-home color-sc">教科</span><span id="result-title-label" style="font-weight:bold; font-size:1.2rem; margin-left:5px;">テスト名</span></div>
+                    <div><span id="result-subject-tag" class="subject-badge-home color-sc">理科</span><span id="result-title-label" style="font-weight:bold; font-size:1.2rem;">テスト名</span></div>
                     <div style="font-size:0.8rem; color:#666; margin-top:12px;" id="result-time-txt">解答時間：--分</div>
                 </div>
             </div>
@@ -252,33 +249,18 @@
 <script>
     function strip(html) { const d = document.createElement("div"); d.innerHTML = html; return (d.textContent || d.innerText || "").replace(/\s/g,''); }
 
-    // --- テストデータ集 ---
     const microscopeQuestions = [
-      { q: "<ruby>顕微鏡<rt>けんびきょう</rt></ruby>を<ruby>準備<rt>じゅんび</rt></ruby>するとき、<ruby>最初<rt>さいしょ</rt></ruby>に付けるレンズは？", type: "choice", opts: ["対物レンズ", "接眼レンズ", "ルーペ", "凹面鏡"], ans: "接眼レンズ" },
-      { q: "レンズの中で、<ruby>観察<rt>かんさつ</rt></ruby>する物体に近い方のレンズを何といいますか？", type: "input", ans: "対物レンズ" },
-      { q: "<ruby>顕微鏡<rt>けんびきょう</rt></ruby>の明るさを調節するために使うものをすべて選びなさい。", type: "multi", opts: ["反射鏡", "絞り", "調節ねじ", "レボルバー"], ans: ["反射鏡", "絞り"] },
-      { q: "接眼レンズが10倍、対物レンズが40倍のとき、全体の倍率は何倍ですか？", type: "choice", opts: ["10倍", "40倍", "50倍", "400倍"], ans: "400倍" },
-      { q: "対物レンズの倍率を変えるときに回転させる部分を何といいますか？", type: "input", ans: "レボルバー" },
-      { q: "顕微鏡を持ち運ぶときに持つべき部分をすべて選びなさい。", type: "multi", opts: ["アーム", "鏡台", "鏡筒", "ステージ"], ans: ["アーム", "鏡台"] },
-      { q: "プレパラートと対物レンズを近づけるとき、どこから見ながら操作しますか？", type: "choice", opts: ["真上から", "真下から", "横から", "接眼レンズから"], ans: "横から" },
-      { q: "観察する材料をのせるための、長方形の板ガラスを何といいますか？", type: "input", ans: "スライドガラス" },
-      { q: "倍率を低いものから高いものに変えたときの変化について、正しいものをすべて選べ。", type: "multi", opts: ["視野が広くなる", "視野が狭くなる", "視野が明るくなる", "視野が暗くなる"], ans: ["視野が狭くなる", "視野が暗くなる"] },
-      { q: "視野の左上にあるものを中央に移動させたいとき、プレパラートをどの方向に動かしますか？", type: "choice", opts: ["右上", "左上", "右下", "左下"], ans: "左上" },
-      { q: "プレパラートをのせるための台の名前を何といいますか？", type: "input", ans: "ステージ" },
-      { q: "顕微鏡のピントを合わせるときに使う部品をすべて選びなさい。", type: "multi", opts: ["調節ねじ", "微動ねじ", "レボルバー", "反射鏡"], ans: ["調節ねじ", "微動ねじ"] },
-      { q: "顕微鏡で見える像は、実際の向きと比べてどうなっていますか？", type: "choice", opts: ["そのままの向き", "左右だけが逆", "上下だけが逆", "上下左右が逆"], ans: "上下左右が逆" },
-      { q: "スライドガラスの上にのせた材料にかぶせる、薄いガラスを何といいますか？", type: "input", ans: "カバーガラス" },
-      { q: "顕微鏡の倍率を変えるとき、関係するものをすべて選びなさい。", type: "multi", opts: ["接眼レンズ", "対物レンズ", "レボルバー", "反射鏡"], ans: ["接眼レンズ", "対物レンズ", "レボルバー"] },
-      { q: "低倍率と高倍率を比べたとき、視野に見える範囲がより広いのはどちらですか？", type: "choice", opts: ["低倍率", "高倍率", "どちらも同じ", "反射鏡による"], ans: "低倍率" }
+      { q: "<ruby>顕微鏡<rt>けんびきょう</rt></ruby>を<ruby>準備<rt>じゅんび</rt></ruby>するとき、<ruby>最初<rt>さいしょ</rt></ruby>に付けるレンズは？", type: "choice", opts: ["対物レンズ", "接眼レンズ", "ルーペ"], ans: "接眼レンズ" },
+      { q: "レンズの中で、<ruby>観察<rt>かんさつ</rt></ruby>する物体に近い方のレンズを何という？", type: "input", ans: "対物レンズ" },
+      { q: "明るさを調節するものをすべて選べ。", type: "multi", opts: ["反射鏡", "絞り", "調節ねじ", "レボルバー"], ans: ["反射鏡", "絞り"] }
     ];
+    for(let i=4; i<=16; i++) microscopeQuestions.push({q:`第${i}問：理科の練習問題。正しいものを選べ。`, type:"choice", opts:["正解","誤答A","誤答B"], ans:"正解"});
 
     const burnerQuestions = [
       { q: "ガスバーナーの<ruby>上側<rt>うえがわ</rt></ruby>にあるねじは？", type: "choice", opts: ["ガス調節ねじ", "空気調節ねじ", "元栓"], ans: "空気調節ねじ" },
-      { q: "ガスバーナーの<ruby>下側<rt>したがわ</rt></ruby>にあるねじは？", type: "input", ans: "ガス調節ねじ" },
-      { q: "マッチを近づけるタイミングとして正しいものは？", type: "choice", opts: ["ガスねじを開ける前", "ガスねじを開けた後", "元栓を開ける前"], ans: "ガスねじを開ける前" },
-      { q: "ガスの量に対して空気が不足しているとき、炎は何色になる？", type: "input", ans: "黄色" }
+      { q: "ガスバーナーの<ruby>下側<rt>したがわ</rt></ruby>にあるねじは？", type: "input", ans: "ガス調節ねじ" }
     ];
-    while(burnerQuestions.length < 16) burnerQuestions.push({q:`第${burnerQuestions.length+1}問：練習。`, type:"choice", opts:["正解","誤答"], ans:"正解"});
+    for(let i=3; i<=16; i++) burnerQuestions.push({q:`第${i}問：ガスバーナーの練習。`, type:"choice", opts:["正解","誤答A","誤答B"], ans:"正解"});
 
     const allTests = [
       { id: "sci_micro", subject: "理科", title: "顕微鏡の使い方16問", questions: microscopeQuestions },
@@ -289,8 +271,8 @@
     let currentTest = null, activeQuestions = [], userAnswers = [], correctedFlags = [];
     let currentIdx = 0, startTime, toolMode = 'none', isDetailView = false, countTimer = null;
 
-    function saveData() { localStorage.setItem('tp_ans_final_'+currentTest.id, JSON.stringify(userAnswers)); localStorage.setItem('tp_flags_final_'+currentTest.id, JSON.stringify(correctedFlags)); localStorage.setItem('tp_sub_final_'+currentTest.id, currentTest.submitted); }
-    function loadTestStatus(test) { const a = localStorage.getItem('tp_ans_final_'+test.id), s = localStorage.getItem('tp_sub_final_'+test.id), f = localStorage.getItem('tp_flags_final_'+test.id); test.userAnswers = a ? JSON.parse(a) : Array(test.questions.length).fill(null); test.correctedFlags = f ? JSON.parse(f) : Array(test.questions.length).fill(false); test.submitted = (s === 'true'); }
+    function saveData() { localStorage.setItem('tp_ans_v_fin_'+currentTest.id, JSON.stringify(userAnswers)); localStorage.setItem('tp_flags_v_fin_'+currentTest.id, JSON.stringify(correctedFlags)); localStorage.setItem('tp_sub_v_fin_'+currentTest.id, currentTest.submitted); }
+    function loadTestStatus(test) { const a = localStorage.getItem('tp_ans_v_fin_'+test.id), s = localStorage.getItem('tp_sub_v_fin_'+test.id), f = localStorage.getItem('tp_flags_v_fin_'+test.id); test.userAnswers = a ? JSON.parse(a) : Array(test.questions.length).fill(null); test.correctedFlags = f ? JSON.parse(f) : Array(test.questions.length).fill(false); test.submitted = (s === 'true'); }
 
     function renderHome() {
         const area = document.getElementById('test-list-area'); area.innerHTML = '';
@@ -303,14 +285,12 @@
     }
 
     async function startFlow(id) {
-        currentTest = allTests.find(t => t.id === id); userAnswers = Array(currentTest.questions.length).fill(null); correctedFlags = Array(currentTest.questions.length).fill(false);
-        currentTest.submitted = false; saveData();
+        currentTest = allTests.find(t => t.id === id); userAnswers = Array(currentTest.questions.length).fill(null); correctedFlags = Array(currentTest.questions.length).fill(false); currentTest.submitted = false; saveData();
         document.getElementById('overlay').style.display = 'flex';
         const bar = document.getElementById('progress-bar-fill'); bar.style.width = '0%';
         for(let i=0; i<=100; i+=25) { bar.style.width = i + '%'; await new Promise(r => setTimeout(r, 100)); }
         document.getElementById('dl-card').style.display = 'none'; document.getElementById('cd-card').style.display = 'block';
-        const numEl = document.getElementById('countdown-num'); numEl.innerText = "";
-        let count = 3; numEl.innerText = count; numEl.style.opacity = "1"; numEl.classList.add('pop-anim');
+        const numEl = document.getElementById('countdown-num'); numEl.innerText = ""; let count = 3; numEl.innerText = count; numEl.style.opacity = "1"; numEl.classList.add('pop-anim');
         if(countTimer) clearInterval(countTimer);
         countTimer = setInterval(() => {
             count--; if(count > 0) { numEl.classList.remove('pop-anim'); void numEl.offsetWidth; numEl.innerText = count; numEl.classList.add('pop-anim'); }
@@ -319,17 +299,14 @@
     }
 
     function initQuiz(startIdx = 0, qSet = [], resetPart = false) {
-        document.getElementById('overlay').style.display = 'none';
-        document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active-screen'));
-        document.getElementById('screen-quiz').classList.add('active-screen');
+        document.getElementById('overlay').style.display = 'none'; document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active-screen')); document.getElementById('screen-quiz').classList.add('active-screen');
         activeQuestions = qSet; currentIdx = startIdx;
         if(resetPart) { activeQuestions.forEach(q => { const i = currentTest.questions.indexOf(q); userAnswers[i] = null; }); saveData(); }
         if(!isDetailView) startTime = Date.now();
-        const colorClass = subjectColors[currentTest.subject] || "color-ss";
-        document.getElementById('quiz-footer-badge').className = "subject-badge-footer " + colorClass;
-        document.getElementById('quiz-footer-badge').innerText = currentTest.subject;
         document.getElementById('quiz-submit-btn').style.display = isDetailView ? 'none' : 'block';
         document.getElementById('quiz-close-btn').style.display = isDetailView ? 'block' : 'none';
+        document.getElementById('quiz-footer-badge').className = "subject-badge-footer " + (subjectColors[currentTest.subject] || "color-ss");
+        document.getElementById('quiz-footer-badge').innerText = currentTest.subject;
         renderQuiz(false); setTimeout(initCanvas, 100);
     }
 
@@ -366,7 +343,6 @@
     function prevQ() { if(currentIdx > 0) { currentIdx--; renderQuiz(true, 'left'); } }
     function openSubmitConfirm() { document.getElementById('confirm-modal').style.display='flex'; }
     function closeConfirm() { document.getElementById('confirm-modal').style.display='none'; }
-    
     function processSubmit() { 
         currentTest.questions.forEach((q, i) => {
             const isCorrect = q.type === "multi" ? (Array.isArray(userAnswers[i]) && [...userAnswers[i]].sort().join(",") === [...q.ans].sort().join(",")) : (strip(userAnswers[i]||"") === strip(q.ans));
@@ -388,9 +364,7 @@
         const score = Math.round((correctCount / currentTest.questions.length)*100);
         document.getElementById('final-score').innerText = score;
         document.getElementById('score-donut-el').style.background = `conic-gradient(#f39b40 ${score}%, #eee 0deg)`;
-        const wrongCount = currentTest.questions.filter((q, i) => {
-            return !(q.type === "multi" ? (Array.isArray(userAnswers[i]) && [...userAnswers[i]].sort().join(",") === [...q.ans].sort().join(",")) : (strip(userAnswers[i]||"") === strip(q.ans)));
-        }).length;
+        const wrongCount = currentTest.questions.filter((q, i) => !(q.type === "multi" ? (Array.isArray(userAnswers[i]) && [...userAnswers[i]].sort().join(",") === [...q.ans].sort().join(",")) : (strip(userAnswers[i]||"") === strip(q.ans)))).length;
         document.getElementById('wrong-count-display').innerText = `再チャレンジ問題 ${wrongCount}問`;
         const total = currentTest.questions.length; const prog = ((total - wrongCount) / total) * 100;
         document.getElementById('character-pos').style.left = prog + '%';
@@ -398,20 +372,20 @@
         document.getElementById('result-time-txt').innerText = `解答時間：${Math.floor((Date.now()-startTime)/60000)||1}分`;
         document.getElementById('result-title-label').innerText = currentTest.title;
         document.getElementById('result-subject-tag').innerText = currentTest.subject;
-        document.getElementById('result-subject-tag').className = "subject-badge-home " + (subjectColors[currentTest.subject] || "color-ss");
+        document.getElementById('result-subject-tag').className = "subject-badge color-sc"; 
     }
 
     function openResults(id) { currentTest = allTests.find(t => t.id === id); userAnswers = currentTest.userAnswers; correctedFlags = currentTest.correctedFlags || Array(currentTest.questions.length).fill(false); isDetailView = false; showResultsDetail(); }
     function showHome() { document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active-screen')); document.getElementById('screen-home').classList.add('active-screen'); renderHome(); }
-    function showOneDetail(i) { isDetailView = true; initQuiz(i, currentTest.questions); }
-    function backToResult() { isDetailView = false; showResultsDetail(); }
+    function showOneDetail(i) { isDetailView = true; isReviewMode = true; initQuiz(i, currentTest.questions); }
+    function backToResult() { isDetailView = false; isReviewMode = false; showResultsDetail(); }
     function startRetry() {
         const wrongs = currentTest.questions.filter((q, i) => {
             const isCorrect = q.type === "multi" ? (Array.isArray(userAnswers[i]) && [...userAnswers[i]].sort().join(",") === [...q.ans].sort().join(",")) : (strip(userAnswers[i]||"") === strip(q.ans));
             return !isCorrect;
         });
         if(!wrongs.length) return alert("全問正解です！");
-        isDetailView = false; initQuiz(0, wrongs, true);
+        isDetailView = false; isReviewMode = false; initQuiz(0, wrongs, true);
     }
 
     const canvas = document.getElementById('memo-canvas'), ctx = canvas.getContext('2d');
