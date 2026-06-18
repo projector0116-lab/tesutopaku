@@ -26,33 +26,27 @@
             display: flex; align-items: center; gap: 8px; color: #000; text-decoration: none;
         }
 
-        /* --- 教科カラー（青文字禁止のため濃紺などに調整） --- */
-        .color-jp { background-color: #e60012 !important; color: white !important; }
-        .color-ma { background-color: #1a447a !important; color: white !important; }
+        /* --- 教科カラー --- */
         .color-sc { background-color: #009944 !important; color: white !important; }
-        .color-ss { background-color: #f39b40 !important; color: white !important; }
-        .color-en { background-color: #800080 !important; color: white !important; }
 
         /* --- ホーム画面 --- */
         .main-wrapper { margin-top: 100px; padding: 0 20px; width: 100%; overflow-y: auto; flex: 1; }
-        .container { display: flex; gap: 20px; max-width: 800px; margin: 0 auto; padding-bottom: 40px; flex-direction: column; }
+        .container { display: flex; gap: 20px; max-width: 800px; margin: 0 auto; padding-bottom: 40px; justify-content: center; flex-direction: column; }
         .card { background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%; }
         .card-header-bar { padding: 15px 20px; color: white; font-weight: bold; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; background: #f39b40; }
         .item-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 20px; }
-        
-        .subject-badge-home { padding: 4px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; margin-right: 8px; }
+
         .btn-round { border: none; padding: 12px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; color: white; transition: 0.1s; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
         .btn-orange { background: #f39b40; }
-        .btn-navy { background: #1a447a; } /* 青の代わりに濃紺 */
+        .btn-blue { background: #50a8e0; }
 
-        /* --- アイコン設定 --- */
+        /* --- シルエットアイコン設定 --- */
         .svg-icon { stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
         /* --- 演出オーバーレイ --- */
         #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #a2d2e5; z-index: 2000; display: none; align-items: center; justify-content: center; }
         .white-modal { background: white; padding: 40px 30px; border-radius: 20px; box-shadow: 0 4px 25px rgba(0,0,0,0.15); text-align: center; width: 450px; }
         .progress-fill-dl { height: 16px; background: #f39b40; width: 0%; border-radius: 8px; transition: width 0.3s; }
-        
         #countdown-num { font-size: 80px; font-weight: bold; color: #e60012; margin-top: 10px; display: inline-block; opacity: 0; }
         .pop-anim { animation: gwa 0.7s ease-out forwards; }
         @keyframes gwa { 0% { transform: scale(0.3); opacity: 0; } 50% { transform: scale(1.4); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
@@ -66,7 +60,7 @@
             cursor: pointer; color: #333; font-weight: bold; white-space: nowrap;
             display: flex; flex-direction: row; align-items: center; gap: 4px;
         }
-        .tab.active { background: #1a447a; color: white; }
+        .tab.active { background: #2c4b8e; color: white; }
         .tab.answered { color: #fff; background: #888; }
         .submit-btn-fixed { background: #f39b40; color: white; border: none; padding: 8px 25px; font-weight: bold; cursor: pointer; font-size: 1rem; border-radius: 30px; margin-right: 15px; }
 
@@ -79,6 +73,11 @@
         .right-panel { flex: 1; padding: 30px; background: #fafafa; overflow-y: auto; }
         .answer-option { display: block; width: 100%; background: white; border: 2px solid #ddd; padding: 18px; margin-bottom: 12px; border-radius: 20px; text-align: left; font-size: 1rem; cursor: pointer; color: #333; font-weight: bold; }
         .answer-option.selected { border-color: #f39b40; background: #fff9f0; }
+        .answer-input-box { width: 100%; padding: 20px; border: 2px solid #ddd; border-radius: 20px; font-size: 1.2rem; font-weight: bold; margin-bottom: 15px; outline: none; }
+
+        .review-label { font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; color: #666; }
+        .user-ans-box { padding: 15px; background: #eee; border-radius: 10px; margin-bottom: 20px; font-weight: bold; }
+        .correct-ans-box { padding: 15px; background: #fff0f0; border: 2px solid #e60012; border-radius: 10px; color: #e60012; font-weight: bold; }
 
         #memo-canvas { position: absolute; top: 0; left: 0; pointer-events: none; z-index: 10; touch-action: none; }
         #memo-canvas.active { pointer-events: auto; }
@@ -101,10 +100,9 @@
         .score-donut { position: relative; width: 160px; height: 160px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center; }
         .score-inner { width: 130px; height: 130px; background: white; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold; }
         .score-num { font-size: 3rem; color: #f39b40; }
-
         .retry-track { width: 100%; height: 14px; background: #eee; border-radius: 10px; margin: 20px 0; position: relative; }
         .retry-char-icon { position: absolute; top: -30px; transform: translateX(-50%); transition: left 0.5s ease; }
-        .btn-retry-all-main { background: #f39b40; color: white !important; border: none; width: 100%; padding: 15px; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 1rem; margin-top: 10px; }
+        .btn-retry-all-main { background: #f39b40; color: white !important; border: none; width: 100%; padding: 15px; border-radius: 40px; font-weight: bold; cursor: pointer; font-size: 1rem; margin-top: 10px; }
 
         .score-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(105px, 1fr)); gap: 10px; padding: 20px; max-width: 1000px; margin: 0 auto; }
         .grid-item { background: white; border-radius: 12px; overflow: hidden; border: 1px solid #ddd; text-align: center; cursor: pointer; }
@@ -113,8 +111,7 @@
         .red-item .grid-header { background: #e60012; }
         .red-item .grid-mark { color: #e60012; }
 
-        #confirm-modal, #review-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 3000; display: none; align-items: center; justify-content: center; }
-        .modal-card { background: white; width: 420px; padding: 30px; border-radius: 20px; text-align: center; }
+        #confirm-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 3000; display: none; align-items: center; justify-content: center; }
         #settings-menu { position: fixed; bottom: 75px; left: 20px; background: white; border: 1px solid #ccc; padding: 20px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.15); display: none; z-index: 500; }
     </style>
 </head>
@@ -167,7 +164,7 @@
     <div class="quiz-top-nav">
         <div class="tab-container" id="tab-container"></div>
         <button class="submit-btn-fixed" id="quiz-submit-btn" onclick="openSubmitConfirm()">提出する ↑</button>
-        <button class="submit-btn-fixed" id="quiz-close-btn" style="display:none; background:#555;" onclick="showResultsDetail()">結果に戻る</button>
+        <button class="submit-btn-fixed" id="quiz-close-btn" style="display:none; background:#555;" onclick="backToResult()">結果に戻る</button>
     </div>
     <div class="quiz-body-wrapper">
         <div class="quiz-body" id="quiz-animate-body">
@@ -181,7 +178,7 @@
             <div class="footer-tool-btn" id="btn-eraser" onclick="toggleTool('eraser')">⌫ 消しゴム</div>
             <div class="footer-tool-btn" onclick="toggleSettings()"><svg width="14" height="14" viewBox="0 0 512 512" fill="currentColor"><path d="M487.4 315.7l-42.6-24.6c2.3-11.7 3.5-23.8 3.5-36.1s-1.2-24.4-3.5-36.1l42.6-24.6c11.6-6.7 15.6-21.6 8.9-33.2l-40-69.3c-6.7-11.6-21.6-15.6-33.2-8.9l-42.6 24.6c-19.4-15.1-41.2-27.1-64.8-35.3V52c0-13.4-10.8-24-24.2-24h-80c-13.4 0-24.2 10.7-24.2 24v49.8c-23.6 8.2-45.4 20.2-64.8 35.3l-42.6-24.6c-11.6-6.7-26.5-2.7-33.2 8.9l-40 69.3c-6.7 11.6-2.7 26.5 8.9 33.2l42.6 24.6c-2.3 11.7-3.5 23.8-3.5 36.1s1.2 24.4 3.5 36.1l-42.6 24.6c-11.6 6.7-15.6 21.6-8.9 33.2l40 69.3c6.7 11.6 21.6 15.6 33.2 8.9l42.6 24.6c19.4 15.1 41.2 27.1 64.8 35.3V460c0 13.4 10.8 24 24.2 24h80c13.4 0 24.2-10.7 24.2-24v-49.8c23.6-8.2 45.4-20.2 64.8-35.3l42.6 24.6c11.6 6.7 26.5 2.7 33.2-8.9l40-69.3c6.6-11.6 2.7-26.5-8.9-33.2zM256 348c-50.8 0-92-41.2-92-92s41.2-92 92-92 92 41.2 92 92-41.2 92-92 92z"/></svg>設定</div>
         </div>
-        <div class="footer-center"><div id="quiz-footer-badge" class="subject-badge-footer">教科</div></div>
+        <div class="footer-center"><div id="quiz-footer-badge" class="subject-badge-footer color-sc">理科</div></div>
         <div class="footer-right">
             <div class="nav-arrow-btn" onclick="prevQ()"><svg class="svg-icon" width="20" height="20" viewBox="0 0 24 24" style="stroke:#333; stroke-width:3;"><polyline points="15 18 9 12 15 6"/></svg></div>
             <div style="font-weight:bold; font-size:1.1rem; min-width:60px; text-align:center;"><span id="curr-page">1</span> / <span id="total-page">16</span></div>
@@ -198,17 +195,13 @@
             <div class="result-main-left">
                 <div class="score-donut" id="score-donut-el"><div class="score-inner"><div id="final-score" class="score-num">0</div><div>/ 100</div></div></div>
                 <div style="flex:1; padding-left:20px;">
-                    <div><span id="result-subject-tag" class="subject-badge-footer" style="padding:2px 10px; border-radius:5px;">教科</span><span id="result-title-label" style="font-weight:bold; font-size:1.2rem;">テスト名</span></div>
+                    <div><span id="result-subject-tag" class="color-sc" style="padding:2px 10px; border-radius:5px; font-weight:bold; font-size:0.9rem;">理科</span><span id="result-title-label" style="font-weight:bold; font-size:1.2rem; margin-left:10px;">顕微鏡の使い方</span></div>
                     <div style="font-size:0.8rem; color:#666; margin-top:8px;" id="result-time-txt">解答時間：--分</div>
                 </div>
             </div>
             <div class="result-main-right">
                 <div style="font-weight:bold; font-size:0.9rem; display:flex; justify-content:space-between;"><span>解き直し</span><span id="wrong-count-display">再チャレンジ問題 0問</span></div>
-                <div class="retry-track">
-                    <div class="retry-char-icon" id="character-pos">
-                        <svg class="svg-icon" width="24" height="24" style="stroke:#333;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
-                    </div>
-                </div>
+                <div class="retry-track"><div class="retry-char-icon" id="character-pos"><svg class="svg-icon" width="24" height="24" style="stroke:#333;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg></div></div>
                 <button class="btn-retry-all-main" onclick="startRetry()">まとめて見直し →</button>
             </div>
         </div>
@@ -217,90 +210,65 @@
     </div>
 </div>
 
-<div id="review-modal"><div class="modal-card">
-    <div id="review-q-txt" style="font-weight:bold; margin-bottom:15px; text-align:left;"></div>
-    <div style="text-align:left; background:#f8f9fa; padding:15px; border-radius:10px; margin-bottom:10px;">あなたの回答：<span id="review-user-ans"></span></div>
-    <div style="text-align:left; background:#fff0f0; padding:15px; border-radius:10px; color:#e60012; font-weight:bold;">正解：<span id="review-correct-ans"></span></div>
-    <button class="btn-round btn-orange" style="width:100%; margin-top:15px;" onclick="document.getElementById('review-modal').style.display='none'">とじる</button>
-</div></div>
-
 <div id="settings-menu"><div style="font-weight:bold; margin-bottom:10px;">表示設定</div><label style="display:flex; align-items:center; gap:10px; cursor:pointer; font-weight:bold;"><input type="checkbox" id="ruby-toggle" onchange="updateRuby()"> ふりがなを表示する</label></div>
 
 <script>
-    // --- 顕微鏡データ ---
+    // --- タグを除去して文字のみを比較する関数 ---
+    function strip(html) { const div = document.createElement("div"); div.innerHTML = html; return div.textContent || div.innerText || ""; }
+
     const microscopeQuestions = [
-      { q: "<ruby>顕微鏡<rt>けんびきょう</rt></ruby>を<ruby>準備<rt>じゅんび</rt></ruby>するとき、<ruby>最初<rt>さいしょ</rt></ruby>に<ruby>取<rt>と</rt></ruby>り<ruby>付<rt>つ</rt></ruby>けるのはどのレンズですか？", type: "choice", opts: ["<ruby>対物<rt>たいぶつ</rt></ruby>レンズ", "<ruby>接眼<rt>せつがん</rt></ruby>レンズ", "ルーペ", "<ruby>凹面鏡<rt>おうめんきょう</rt></ruby>"], ans: "<ruby>接眼<rt>せつがん</rt></ruby>レンズ" },
-      { q: "レンズの<ruby>中<rt>なか</rt></ruby>で、<ruby>観察<rt>かんさつ</rt></ruby>する<ruby>物体<rt>ぶったい</rt></ruby>に<ruby>近<rt>ちか</rt></ruby>い<ruby>方<rt>ほう</rt></ruby>のレンズを<ruby>何<rt>なに</rt></ruby>といいますか？", type: "input", ans: "<ruby>対物<rt>たいぶつ</rt></ruby>レンズ" },
-      { q: "<ruby>顕微鏡<rt>けんびきょう</rt></ruby>の<ruby>明<rt>あか</rt></ruby>るさを<ruby>調節<rt>ちょうせつ</rt></ruby>するために<ruby>使<rt>つか</rt></ruby>うものをすべて<ruby>選<rt>えら</rt></ruby>びなさい。", type: "multi", opts: ["<ruby>反射鏡<rt>はんしゃきょう</rt></ruby>", "<ruby>絞<rt>しぼ</rt></ruby>り", "<ruby>調節<rt>ちょうせつ</rt></ruby>ねじ", "レボルバー"], ans: ["<ruby>反射鏡<rt>はんしゃきょう</rt></ruby>", "<ruby>絞<rt>しぼ</rt></ruby>り"] },
-      { q: "<ruby>接眼<rt>せつがん</rt></ruby>レンズが10<ruby>倍<rt>ばい</rt></ruby>、<ruby>対物<rt>たいぶつ</rt></ruby>レンズが40<ruby>倍<rt>ばい</rt></ruby>のとき、<ruby>全体<rt>ぜんたい</rt></ruby>の<ruby>倍率<rt>ばいりつ</rt></ruby>は<ruby>何倍<rt>なんばい</rt></ruby>になりますか？", type: "choice", opts: ["10<ruby>倍<rt>ばい</rt></ruby>", "40<ruby>倍<rt>ばい</rt></ruby>", "50<ruby>倍<rt>ばい</rt></ruby>", "400<ruby>倍<rt>ばい</rt></ruby>"], ans: "400<ruby>倍<rt>ばい</rt></ruby>" },
-      { q: "<ruby>対物<rt>たいぶつ</rt></ruby>レンズの<ruby>倍率<rt>ばいりつ</rt></ruby>を<ruby>変<rt>か</rt></ruby>えるときに<ruby>回転<rt>かいてん</rt></ruby>させる<ruby>部分<rt>ぶぶん</rt></ruby>を<ruby>何<rt>なに</rt></ruby>といいますか？", type: "input", ans: "レボルバー" },
-      { q: "<ruby>顕微鏡<rt>けんびきょう</rt></ruby>を<ruby>持<rt>も</rt></ruby>ち<ruby>運<rt>はこ</rt></ruby>ぶときに<ruby>持<rt>も</rt></ruby>つべき<ruby>部分<rt>ぶぶん</rt></ruby>をすべて<ruby>選<rt>えら</rt></ruby>びなさい。", type: "multi", opts: ["アーム", "<ruby>鏡台<rt>きょうだい</rt></ruby>", "<ruby>鏡筒<rt>きょうとう</rt></ruby>", "ステージ"], ans: ["アーム", "<ruby>鏡台<rt>きょうだい</rt></ruby>"] },
-      { q: "プレパラートと<ruby>対物<rt>たいぶつ</rt></ruby>レンズを<ruby>近<rt>ちか</rt></ruby>づけるとき、どこから<ruby>見<rt>み</rt></ruby>ながら<ruby>操作<rt>そうさ</rt></ruby>しますか？", type: "choice", opts: ["<ruby>真上<rt>まうえ</rt></ruby>から", "<ruby>真下<rt>ましいた</rt></ruby>から", "<ruby>横<rt>よこ</rt></ruby>から", "<ruby>接眼<rt>せつがん</rt></ruby>レンズから"], ans: "<ruby>横<rt>よこ</rt></ruby>から" },
-      { q: "<ruby>観察<rt>かんさつ</rt></ruby>する<ruby>材料<rt>ざいりょう</rt></ruby>をのせるための、<ruby>長方形<rt>ちょうほうけい</rt></ruby>の<ruby>板<rt>いた</rt></ruby>ガラスを<ruby>何<rt>なに</rt></ruby>といいますか？", type: "input", ans: "スライドガラス" },
-      { q: "<ruby>倍率<rt>ばいりつ</rt></ruby>を<ruby>低<rt>ひく</rt></ruby>いものから<ruby>高<rt>たか</rt></ruby>いものに<ruby>変<rt>か</rt></ruby>えたときの<ruby>変化<rt>へんか</rt></ruby>について、<ruby>正<rt>ただ</rt></ruby>しいものをすべて<ruby>選<rt>えら</rt></ruby>びなさい。", type: "multi", opts: ["<ruby>視野<rt>しや</rt></ruby>が<ruby>広<rt>ひろ</rt></ruby>くなる", "<ruby>視野<rt>しや</rt></ruby>が<ruby>狭<rt>せま</rt></ruby>くなる", "<ruby>視野<rt>しや</rt></ruby>が<ruby>明<rt>あか</rt></ruby>るくなる", "<ruby>視野<rt>しや</rt></ruby>が<ruby>暗<rt>くら</rt></ruby>くなる"], ans: ["<ruby>視野<rt>しや</rt></ruby>が<ruby>狭<rt>せま</rt></ruby>くなる", "<ruby>視野<rt>しや</rt></ruby>が<ruby>暗<rt>くら</rt></ruby>くなる"] },
-      { q: "<ruby>視野<rt>しや</rt></ruby>の<ruby>左上<rt>ひだりうえ</rt></ruby>にあるものを<ruby>中央<rt>ちゅうおう</rt></ruby>に<ruby>移動<rt>いどう</rt></ruby>させたいとき、プレパラートをどの<ruby>方向<rt>ほうこう</rt></ruby>に<ruby>動<rt>うご</rt></ruby>かしますか？", type: "choice", opts: ["<ruby>右上<rt>みぎうえ</rt></ruby>", "<ruby>左上<rt>ひだりうえ</rt></ruby>", "<ruby>右下<rt>みぎした</rt></ruby>", "<ruby>左下<rt>ひだりした</rt></ruby>"], ans: "<ruby>左上<rt>ひだりうえ</rt></ruby>" },
-      { q: "プレパラートをのせるための<ruby>台<rt>だい</rt></ruby>の<ruby>名前<rt>なまえ</rt></ruby>を<ruby>何<rt>なに</rt></ruby>といいますか？", type: "input", ans: "ステージ" },
-      { q: "<ruby>顕微鏡<rt>けんびきょう</rt></ruby>のピントを<ruby>合<rt>あ</rt></ruby>わせるときに<ruby>使<rt>つか</rt></ruby>う<ruby>部品<rt>ぶひん</rt></ruby>をすべて<ruby>選<rt>えら</rt></ruby>びなさい。", type: "multi", opts: ["<ruby>調節<rt>ちょうせつ</rt></ruby>ねじ", "<ruby>微動<rt>びどう</rt></ruby>ねじ", "レボルバー", "<ruby>反射鏡<rt>はんしゃきょう</rt></ruby>"], ans: ["<ruby>調節<rt>ちょうせつ</rt></ruby>ねじ", "<ruby>微動<rt>びどう</rt></ruby>ねじ"] },
-      { q: "<ruby>顕微鏡<rt>けんびきょう</rt></ruby>で<ruby>見<rt>み</rt></ruby>える<ruby>像<rt>ぞう</rt></ruby>は、<ruby>実際<rt>じっさい</rt></ruby>の<ruby>向<rt>む</rt></ruby>きと<ruby>比<rt>くら</rt></ruby>べてどのようになっていますか？", type: "choice", opts: ["そのままの<ruby>向<rt>む</rt></ruby>き", "<ruby>左右<rt>さゆう</rt></ruby>だけが<ruby>逆<rt>ぎゃく</rt></ruby>", "<ruby>上下<rt>じょうげ</rt></ruby>だけが<ruby>逆<rt>ぎゃく</rt></ruby>", "<ruby>上下左右<rt>じょうげさゆう</rt></ruby>が<ruby>逆<rt>ぎゃく</rt></ruby>"], ans: "<ruby>上下左右<rt>じょうげさゆう</rt></ruby>が<ruby>逆<rt>ぎゃく</rt></ruby>" },
-      { q: "スライドガラスの<ruby>上<rt>うえ</rt></ruby>にのせた<ruby>材料<rt>ざいりょう</rt></ruby>にかぶせる、<ruby>薄<rt>うす</rt></ruby>いガラスを<ruby>何<rt>なに</rt></ruby>といいますか？", type: "input", ans: "カバーガラス" },
-      { q: "<ruby>顕微鏡<rt>けんびきょう</rt></ruby>の<ruby>倍率<rt>ばいりつ</rt></ruby>を<ruby>変<rt>か</rt></ruby>えるとき、<ruby>関係<rt>かんけい</rt></ruby>するものをすべて<ruby>選<rt>えら</rt></ruby>びなさい。", type: "multi", opts: ["<ruby>接眼<rt>せつがん</rt></ruby>レンズ", "<ruby>対物<rt>たいぶつ</rt></ruby>レンズ", "レボルバー", "<ruby>反射鏡<rt>はんしゃきょう</rt></ruby>"], ans: ["<ruby>接眼<rt>せつがん</rt></ruby>レンズ", "<ruby>対物<rt>たいぶつ</rt></ruby>レンズ", "レボルバー"] },
-      { q: "<ruby>低倍率<rt>ていばいりつ</rt></ruby>と<ruby>高倍率<rt>こうばいりつ</rt></ruby>を<ruby>比<rt>くら</rt></ruby>べたとき、<ruby>視野<rt>しや</rt></ruby>に<ruby>見<rt>み</rt></ruby>える<ruby>範囲<rt>はんい</rt></ruby>がより<ruby>広<rt>ひろ</rt></ruby>いのはどちらですか？", type: "choice", opts: ["<ruby>低倍率<rt>ていばいりつ</rt></ruby>", "<ruby>高倍率<rt>こうばいりつ</rt></ruby>", "どちらも<ruby>同<rt>おな</rt></ruby>じ", "<ruby>反射鏡<rt>はんしゃきょう</rt></ruby>による"], ans: "<ruby>低倍率<rt>ていばいりつ</rt></ruby>" }
+      { q: "<ruby>顕微鏡<rt>けんびきょう</rt></ruby>を<ruby>準備<rt>じゅんび</rt></ruby>するとき、<ruby>最初<rt>さいしょ</rt></ruby>に<ruby>取<rt>と</rt></ruby>り<ruby>付<rt>つ</rt></ruby>けるのはどのレンズですか？", type: "choice", opts: ["対物レンズ", "接眼レンズ", "ルーペ", "凹面鏡"], ans: "接眼レンズ" },
+      { q: "レンズの中で、<ruby>観察<rt>かんさつ</rt></ruby>する物体に近い方のレンズを何といいますか？", type: "input", ans: "対物レンズ" },
+      { q: "<ruby>顕微鏡<rt>けんびきょう</rt></ruby>の明るさを<ruby>調節<rt>ちょうせつ</rt></ruby>するために使うものをすべて選びなさい。", type: "multi", opts: ["反射鏡", "絞り", "調節ねじ", "レボルバー"], ans: ["反射鏡", "絞り"] },
+      { q: "接眼レンズが10倍、対物レンズが40倍のとき、全体の倍率は何倍ですか？", type: "choice", opts: ["10倍", "40倍", "50倍", "400倍"], ans: "400倍" },
+      { q: "対物レンズの倍率を変えるときに回転させる部分を何といいますか？", type: "input", ans: "レボルバー" },
+      { q: "顕微鏡を持ち運ぶときに持つべき部分をすべて選びなさい。", type: "multi", opts: ["アーム", "鏡台", "鏡筒", "ステージ"], ans: ["アーム", "鏡台"] },
+      { q: "プレパラートと対物レンズを近づけるとき、どこから見ながら操作しますか？", type: "choice", opts: ["真上から", "真下から", "横から", "接眼レンズから"], ans: "横から" },
+      { q: "観察する材料をのせるための、長方形の板ガラスを何といいますか？", type: "input", ans: "スライドガラス" },
+      { q: "倍率を低いものから高いものに変えたときの変化について、正しいものをすべて選べ。", type: "multi", opts: ["視野が広くなる", "視野が狭くなる", "視野が明るくなる", "視野が暗くなる"], ans: ["視野が狭くなる", "視野が暗くなる"] },
+      { q: "視野の左上にあるものを中央に移動させたいとき、プレパラートをどの方向に動かしますか？", type: "choice", opts: ["右上", "左上", "右下", "左下"], ans: "左上" },
+      { q: "プレパラートをのせるための台の名前を何といいますか？", type: "input", ans: "ステージ" },
+      { q: "顕微鏡のピントを合わせるときに使う部品をすべて選びなさい。", type: "multi", opts: ["調節ねじ", "微動ねじ", "レボルバー", "反射鏡"], ans: ["調節ねじ", "微動ねじ"] },
+      { q: "顕微鏡で見える像は、実際の向きと比べてどうなっていますか？", type: "choice", opts: ["そのままの向き", "左右だけが逆", "上下だけが逆", "上下左右が逆"], ans: "上下左右が逆" },
+      { q: "スライドガラスの上にのせた材料にかぶせる、薄いガラスを何といいますか？", type: "input", ans: "カバーガラス" },
+      { q: "顕微鏡の倍率を変えるとき、関係するものをすべて選びなさい。", type: "multi", opts: ["接眼レンズ", "対物レンズ", "レボルバー", "反射鏡"], ans: ["接眼レンズ", "対物レンズ", "レボルバー"] },
+      { q: "低倍率と高倍率を比べたとき、視野に見える範囲がより広いのはどちらですか？", type: "choice", opts: ["低倍率", "高倍率", "どちらも同じ", "反射鏡による"], ans: "低倍率" }
     ];
 
-    const allTests = [
-      { id: "sci_micro", subject: "理科", title: "顕微鏡の使い方16問", questions: microscopeQuestions }
-    ];
-
-    const subjectColors = { "国語": "color-jp", "数学": "color-ma", "理科": "color-sc", "社会": "color-ss", "英語": "color-en" };
+    const allTests = [{ id: "sci_micro", subject: "理科", title: "顕微鏡の使い方16問", questions: microscopeQuestions }];
     let currentTest = null, activeQuestions = [], userAnswers = [], currentIdx = 0, startTime, toolMode = 'none', isDetailView = false, countTimer = null;
 
-    function saveData() { localStorage.setItem('tp_ans_'+currentTest.id, JSON.stringify(userAnswers)); localStorage.setItem('tp_sub_'+currentTest.id, currentTest.submitted); }
-    function loadTestStatus(test) {
-        const a = localStorage.getItem('tp_ans_'+test.id), s = localStorage.getItem('tp_sub_'+test.id);
-        test.userAnswers = a ? JSON.parse(a) : Array(test.questions.length).fill(null);
-        test.submitted = (s === 'true');
-    }
+    function saveData() { localStorage.setItem('tp_v4_ans_'+currentTest.id, JSON.stringify(userAnswers)); localStorage.setItem('tp_v4_sub_'+currentTest.id, currentTest.submitted); }
+    function loadTestStatus(test) { const a = localStorage.getItem('tp_v4_ans_'+test.id), s = localStorage.getItem('tp_v4_sub_'+test.id); test.userAnswers = a ? JSON.parse(a) : Array(test.questions.length).fill(null); test.submitted = (s === 'true'); }
 
     function renderHome() {
-        const area = document.getElementById('test-list-area');
-        area.innerHTML = '';
+        const area = document.getElementById('test-list-area'); area.innerHTML = '';
         allTests.forEach(test => {
             loadTestStatus(test);
-            const colorClass = subjectColors[test.subject] || "color-ss";
-            let btns = test.submitted 
-                ? `<button class="btn-round btn-blue" onclick="openResults('${test.id}')" style="margin-right:10px;">回答を見る</button><button class="btn-round btn-orange" onclick="startFlow('${test.id}')">再挑戦</button>`
-                : `<button class="btn-round btn-orange" onclick="startFlow('${test.id}')">テストルームへ</button>`;
-            area.innerHTML += `<div class="item-row"><div><span class="subject-badge-home ${colorClass}">${test.subject}</span><span>${test.title}</span></div><div>${btns}</div></div>`;
+            let btns = test.submitted ? `<button class="btn-round btn-blue" onclick="openResults('${test.id}')" style="margin-right:10px;">回答を見る</button><button class="btn-round btn-orange" onclick="startFlow('${test.id}')">再チャレンジ</button>` : `<button class="btn-round btn-orange" onclick="startFlow('${test.id}')">テストルームへ</button>`;
+            area.innerHTML += `<div class="item-row"><span>${test.title}</span><div>${btns}</div></div>`;
         });
     }
 
     async function startFlow(id) {
-        currentTest = allTests.find(t => t.id === id);
-        userAnswers = Array(currentTest.questions.length).fill(null);
-        currentTest.submitted = false; saveData();
-        document.getElementById('overlay').style.display = 'flex';
-        const bar = document.getElementById('progress-bar-fill'); bar.style.width = '0%';
+        currentTest = allTests.find(t => t.id === id); userAnswers = Array(currentTest.questions.length).fill(null); currentTest.submitted = false; saveData();
+        document.getElementById('overlay').style.display = 'flex'; const bar = document.getElementById('progress-bar-fill'); bar.style.width = '0%';
         for(let i=0; i<=100; i+=25) { bar.style.width = i + '%'; await new Promise(r => setTimeout(r, 100)); }
         document.getElementById('dl-card').style.display = 'none'; document.getElementById('cd-card').style.display = 'block';
-        const numEl = document.getElementById('countdown-num'); numEl.innerText = ""; let count = 3; numEl.innerText = count; numEl.style.opacity = "1"; numEl.classList.add('pop-anim');
+        const numEl = document.getElementById('countdown-num'); let count = 3; numEl.innerText = count; numEl.style.opacity = "1"; numEl.classList.add('pop-anim');
         if(countTimer) clearInterval(countTimer);
         countTimer = setInterval(() => {
-            count--; 
-            if(count > 0) { numEl.classList.remove('pop-anim'); void numEl.offsetWidth; numEl.innerText = count; numEl.classList.add('pop-anim'); }
+            count--; if(count > 0) { numEl.classList.remove('pop-anim'); void numEl.offsetWidth; numEl.innerText = count; numEl.classList.add('pop-anim'); }
             else { clearInterval(countTimer); document.getElementById('overlay').style.display = 'none'; initQuiz(0, currentTest.questions); }
         }, 1000);
     }
 
-    function initQuiz(startIdx = 0, qSet = [], resetMode = false) {
+    function initQuiz(startIdx = 0, qSet = [], resetPart = false) {
         document.getElementById('overlay').style.display = 'none';
-        document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active-screen'));
-        document.getElementById('screen-quiz').classList.add('active-screen');
+        document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active-screen')); document.getElementById('screen-quiz').classList.add('active-screen');
         activeQuestions = qSet; currentIdx = startIdx;
-        if(resetMode) { activeQuestions.forEach(q => { const i = currentTest.questions.indexOf(q); userAnswers[i] = null; }); saveData(); }
+        if(resetPart) { activeQuestions.forEach(q => { const i = allTests[0].questions.indexOf(q); userAnswers[i] = null; }); saveData(); }
         if(!isDetailView) startTime = Date.now();
-        const colorClass = subjectColors[currentTest.subject] || "color-ss";
-        document.getElementById('quiz-footer-badge').className = "subject-badge-footer " + colorClass;
-        document.getElementById('quiz-footer-badge').innerText = currentTest.subject;
         document.getElementById('quiz-submit-btn').style.display = isDetailView ? 'none' : 'block';
         document.getElementById('quiz-close-btn').style.display = isDetailView ? 'block' : 'none';
         renderQuiz(false); setTimeout(initCanvas, 100);
@@ -312,18 +280,15 @@
         const gIdx = currentTest.questions.indexOf(q);
         const check = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#28a745" stroke-width="4"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
         document.getElementById('tab-container').innerHTML = activeQuestions.map((_, i) => {
-            const idx = currentTest.questions.indexOf(activeQuestions[i]);
-            const hasAns = isDetailView ? true : userAnswers[idx] !== null;
+            const idx = currentTest.questions.indexOf(activeQuestions[i]); const hasAns = isDetailView ? true : userAnswers[idx] !== null;
             return `<div class="tab ${i===currentIdx?'active':''} ${hasAns?'answered':''}" onclick="jumpTo(${i})">問${i+1}${hasAns?check:''}</div>`;
         }).join('');
         document.getElementById('q-text').innerHTML = q.q;
         document.getElementById('curr-page').innerText = currentIdx + 1;
         document.getElementById('total-page').innerText = activeQuestions.length;
-        const optArea = document.getElementById('options-container');
+        const optArea = document.getElementById('options-container'); optArea.innerHTML = '';
         if (isDetailView) {
-            let uAns = userAnswers[gIdx], cAns = q.ans;
-            if(Array.isArray(uAns)) uAns = uAns.join(", ");
-            if(Array.isArray(cAns)) cAns = cAns.join(", ");
+            let uAns = userAnswers[gIdx], cAns = q.ans; if(Array.isArray(uAns)) uAns = uAns.join(", "); if(Array.isArray(cAns)) cAns = cAns.join(", ");
             optArea.innerHTML = `<div class="review-label">あなたの回答</div><div class="user-ans-box">${uAns||'未回答'}</div><div class="review-label">正解</div><div class="correct-ans-box">${cAns}</div>`;
         } else {
             if (q.type === "input") optArea.innerHTML = `<input type="text" class="answer-input-box" value="${userAnswers[gIdx]||''}" oninput="userAnswers[${gIdx}]=this.value;saveData()">`;
@@ -334,12 +299,7 @@
         }
     }
 
-    function toggleMulti(o) {
-        const i = currentTest.questions.indexOf(activeQuestions[currentIdx]);
-        let curr = userAnswers[i] || [];
-        if(curr.includes(o)) curr = curr.filter(x => x!==o); else curr.push(o);
-        userAnswers[i] = curr.length ? curr : null; saveData(); renderQuiz(false);
-    }
+    function toggleMulti(o) { const i = currentTest.questions.indexOf(activeQuestions[currentIdx]); let curr = userAnswers[i] || []; if(curr.includes(o)) curr = curr.filter(x => x!==o); else curr.push(o); userAnswers[i] = curr.length ? curr : null; saveData(); renderQuiz(false); }
     function jumpTo(i) { currentIdx = i; renderQuiz(true); }
     function nextQ() { if(currentIdx < activeQuestions.length-1) { currentIdx++; renderQuiz(true); } }
     function prevQ() { if(currentIdx > 0) { currentIdx--; renderQuiz(true); } }
@@ -348,12 +308,13 @@
     function processSubmit() { currentTest.submitted = true; saveData(); closeConfirm(); showResultsDetail(); }
 
     function showResultsDetail() {
-        document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active-screen'));
-        document.getElementById('screen-result').classList.add('active-screen');
+        document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active-screen')); document.getElementById('screen-result').classList.add('active-screen');
         const grid = document.getElementById('score-grid'); grid.innerHTML = '';
         let correctCount = 0;
         currentTest.questions.forEach((q, i) => {
-            let isCorrect = q.type === "multi" ? (Array.isArray(userAnswers[i]) && [...userAnswers[i]].sort().join(",") === [...q.ans].sort().join(",")) : (userAnswers[i] === q.ans);
+            let isCorrect = false;
+            if(q.type === "multi") isCorrect = Array.isArray(userAnswers[i]) && [...userAnswers[i]].sort().join(",") === [...q.ans].sort().join(",");
+            else isCorrect = strip(userAnswers[i]||"") === strip(q.ans);
             if(isCorrect) correctCount++;
             grid.innerHTML += `<div class="grid-item ${isCorrect?'':'red-item'}" onclick="showOneDetail(${i})"><div class="grid-header"><span>${i+1}問</span></div><div class="grid-mark">${isCorrect?'〇':'×'}</div></div>`;
         });
@@ -363,18 +324,17 @@
         document.getElementById('wrong-count-display').innerText = `再チャレンジ問題 ${currentTest.questions.length-correctCount}問`;
         document.getElementById('character-pos').style.left = score + '%';
         document.getElementById('result-time-txt').innerText = `解答時間：${Math.floor((Date.now()-startTime)/60000)||1}分`;
-        const colorClass = subjectColors[currentTest.subject] || "color-ss";
-        document.getElementById('result-subject-tag').className = "subject-badge-footer " + colorClass;
-        document.getElementById('result-subject-tag').innerText = currentTest.subject;
-        document.getElementById('result-title-label').innerText = currentTest.title;
     }
 
-    function openResults(id) { currentTest = allTests.find(t => t.id === id); userAnswers = currentTest.userAnswers; showResultsDetail(); }
+    function openResults(id) { currentTest = allTests.find(t => t.id === id); userAnswers = currentTest.userAnswers; isDetailView = false; showResultsDetail(); }
     function showHome() { document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active-screen')); document.getElementById('screen-home').classList.add('active-screen'); renderHome(); }
     function showOneDetail(i) { isDetailView = true; initQuiz(i, currentTest.questions); }
     function backToResult() { isDetailView = false; showResultsDetail(); }
     function startRetry() {
-        const wrongs = currentTest.questions.filter((q, i) => q.type === "multi" ? ([...(userAnswers[i]||[])].sort().join(",") !== [...q.ans].sort().join(",")) : (userAnswers[i] !== q.ans));
+        const wrongs = currentTest.questions.filter((q, i) => {
+            if(q.type === "multi") return !Array.isArray(userAnswers[i]) || [...userAnswers[i]].sort().join(",") !== [...q.ans].sort().join(",");
+            return strip(userAnswers[i]||"") !== strip(q.ans);
+        });
         if(!wrongs.length) return alert("全問正解です！");
         isDetailView = false; initQuiz(0, wrongs, true);
     }
