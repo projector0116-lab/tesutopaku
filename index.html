@@ -37,25 +37,29 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             border: 1px solid rgba(255,255,255,0.2);
             margin-right: 12px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
         .color-sc { background: linear-gradient(135deg, #00d27f 0%, #009944 100%) !important; }
-        .color-ss { background: linear-gradient(135deg, #f7ac5d 0%, #f39b40 100%) !important; }
 
-        /* --- ホーム画面 --- */
+        /* --- ホーム画面レイアウト --- */
         .main-wrapper { margin-top: 100px; padding: 0 20px; width: 100%; overflow-y: auto; flex: 1; }
         .container { display: flex; gap: 20px; max-width: 850px; margin: 0 auto; padding-bottom: 40px; flex-direction: column; }
-        .card { background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%; }
+        .card { flex: 1 1 100%; background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); width: 100%; }
         .card-header-bar { padding: 15px 20px; color: white; font-weight: bold; font-size: 1.1rem; background: #f39b40; }
-        .item-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 20px; }
-        .btn-round { border: none; padding: 10px 22px; border-radius: 50px; cursor: pointer; font-weight: bold; color: white; transition: 0.1s; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; font-size: 0.9rem; }
+        .item-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding: 22px 20px; }
+
+        .btn-round { border: none; padding: 12px 28px; border-radius: 50px; cursor: pointer; font-weight: bold; color: white; transition: 0.1s; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; font-size: 0.95rem; }
         .btn-orange { background: #f39b40; }
-        .btn-navy { background: #1a447a; }
+        .btn-blue { background: #1a447a; }
+
+        /* --- アイコン設定 --- */
+        .svg-icon { stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
         /* --- 演出オーバーレイ --- */
         #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #a2d2e5; z-index: 2000; display: none; align-items: center; justify-content: center; }
-        .white-modal { background: white; padding: 40px 30px; border-radius: 20px; box-shadow: 0 4px 25px rgba(0,0,0,0.15); text-align: center; width: 450px; }
+        .white-modal { background: white; padding: 45px 30px; border-radius: 20px; box-shadow: 0 4px 25px rgba(0,0,0,0.15); text-align: center; width: 450px; }
         .progress-fill-dl { height: 16px; background: #f39b40; width: 0%; border-radius: 8px; transition: width 0.3s; }
-        #countdown-num { font-size: 80px; font-weight: bold; color: #e60012; margin-top: 10px; display: inline-block; opacity: 0; }
+        #countdown-num { font-size: 85px; font-weight: bold; color: #e60012; margin-top: 10px; display: inline-block; opacity: 0; }
         .pop-anim { animation: gwa 0.7s ease-out forwards; }
         @keyframes gwa { 0% { transform: scale(0.3); opacity: 0; } 50% { transform: scale(1.4); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
 
@@ -70,10 +74,11 @@
         }
         .tab.active { background: #1a447a; color: white; }
         .tab.answered { color: #fff; background: #888; }
-        .submit-btn-fixed { background: #f39b40; color: white; border: none; padding: 8px 25px; font-weight: bold; cursor: pointer; font-size: 1rem; border-radius: 30px; margin-right: 15px; }
+        .submit-btn-fixed { background: #f39b40; color: white; border: none; padding: 8px 25px; font-weight: bold; cursor: pointer; font-size: 1rem; border-radius: 30px; margin-right: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
 
         .quiz-body-wrapper { flex: 1; position: relative; overflow: hidden; margin: 5px 10px; }
         .quiz-body { display: flex; width: 100%; height: 100%; background: white; border-radius: 15px; overflow: hidden; border: 1px solid #ddd; position: absolute; top: 0; left: 0; }
+        
         .slide-in-right { animation: slideInRight 0.4s ease-out forwards; }
         @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         .slide-in-left { animation: slideInLeft 0.4s ease-out forwards; }
@@ -81,7 +86,7 @@
 
         .left-panel { flex: 1.2; padding: 30px; border-right: 1px solid #eee; overflow-y: auto; position: relative; }
         .right-panel { flex: 1; padding: 30px; background: #fafafa; overflow-y: auto; }
-        .answer-option { display: block; width: 100%; background: white; border: 2px solid #ddd; padding: 18px; margin-bottom: 12px; border-radius: 20px; text-align: left; font-size: 1rem; cursor: pointer; color: #333; font-weight: bold; }
+        .answer-option { display: block; width: 100%; background: white; border: 2px solid #ddd; padding: 18px; margin-bottom: 12px; border-radius: 20px; text-align: left; font-size: 1rem; cursor: pointer; color: #333; font-weight: bold; transition: 0.2s; }
         .answer-option.selected { border-color: #f39b40; background: #fff9f0; }
         .answer-input-box { width: 100%; padding: 20px; border: 2px solid #ddd; border-radius: 20px; font-size: 1.2rem; font-weight: bold; margin-bottom: 15px; outline: none; }
 
@@ -92,26 +97,23 @@
         .footer-left { display: flex; flex-direction: row; gap: 10px; align-items: center; }
         .footer-tool-btn { background: white; border: 1px solid #ccc; border-radius: 30px; padding: 6px 15px; font-size: 0.8rem; font-weight: bold; display: flex; align-items: center; gap: 4px; cursor: pointer; color: #333; }
         .footer-tool-btn.active { background: #f39b40; color: white; border-color: #f39b40; }
-        .subject-badge-footer { padding: 4px 15px; border-radius: 4px; font-weight: bold; font-size: 0.8rem; color: white; }
+        .subject-badge-footer { padding: 4px 15px; border-radius: 4px; font-weight: bold; font-size: 0.85rem; color: white !important; }
+        
         .footer-right { display: flex; flex-direction: row; align-items: center; gap: 10px; }
         .nav-arrow-btn { background: white; border: 1px solid #ccc; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
         .page-counter { font-weight: bold; font-size: 1rem; min-width: 60px; text-align: center; }
 
-        /* --- 結果画面 (修正：実機で崩れないレスポンシブ) --- */
+        /* --- 結果画面 --- */
         #screen-result { background: #d0f0f5; overflow-y: auto; }
-        .result-header-card { 
-            width: 95%; max-width: 1000px; margin: 20px auto; background: white; 
-            border-radius: 25px; padding: 30px; display: flex; flex-wrap: wrap; /* 横並びが無理なら折り返す */
-            gap: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
-        }
-        .result-main-left { flex: 1.5; display: flex; gap: 20px; border-right: 2px dashed #eee; padding-right: 20px; min-width: 300px; }
-        .result-main-right { flex: 1; padding-left: 20px; display: flex; flex-direction: column; justify-content: center; min-width: 250px; }
+        .result-header-card { width: 95%; max-width: 1000px; margin: 20px auto; background: white; border-radius: 25px; padding: 30px; display: flex; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .result-main-left { flex: 1.5; display: flex; gap: 30px; border-right: 2px dashed #eee; padding-right: 30px; }
+        .result-main-right { flex: 1; padding-left: 30px; display: flex; flex-direction: column; justify-content: center; }
         
-        /* スマホ用調整：左右を上下に */
+        /* 解き直しバーの修正 */
         @media (max-width: 750px) {
-            .result-header-card { flex-direction: column; padding: 20px; }
+            .result-header-card { flex-direction: column; }
             .result-main-left { border-right: none; border-bottom: 2px dashed #eee; padding-right: 0; padding-bottom: 20px; }
-            .result-main-right { padding-left: 0; padding-top: 10px; }
+            .result-main-right { padding-left: 0; }
         }
 
         .score-donut { position: relative; width: 150px; height: 140px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -120,8 +122,8 @@
         
         .retry-track { width: 100%; height: 14px; background: #eee; border-radius: 10px; margin: 40px 0 20px 0; position: relative; overflow: visible; }
         .retry-fill { position: absolute; top: 0; left: 0; height: 100%; background: #50a8e0; border-radius: 10px; transition: width 0.5s ease; width: 0%; }
-        .retry-char-icon { position: absolute; top: -35px; transform: translateX(-50%); transition: left 0.5s ease; z-index: 5; }
-        .btn-retry-all-main { background: #f39b40; color: white !important; border: none; width: 100%; padding: 15px; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 1.1rem; margin-top: 10px; }
+        .retry-char-icon { position: absolute; top: -32px; transform: translateX(-50%); transition: left 0.5s ease; z-index: 5; }
+        .btn-retry-all-main { background: #f39b40; color: white !important; border: none; width: 100%; padding: 15px; border-radius: 40px; font-weight: bold; cursor: pointer; font-size: 1.1rem; margin-top: 10px; }
 
         .score-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px; padding: 20px; max-width: 1000px; margin: 0 auto; }
         .grid-item { background: white; border-radius: 12px; overflow: hidden; border: 1px solid #ddd; text-align: center; cursor: pointer; }
@@ -131,7 +133,6 @@
         .red-item .grid-header { background: #e60012; }
         .red-item .grid-mark { color: #e60012; }
 
-        .svg-icon { stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
         #confirm-modal, #review-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 3000; display: none; align-items: center; justify-content: center; }
         .modal-card { background: white; width: 420px; padding: 30px; border-radius: 20px; text-align: center; }
         #settings-menu { position: fixed; bottom: 75px; left: 20px; background: white; border: 1px solid #ccc; padding: 20px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.15); display: none; z-index: 500; }
@@ -181,7 +182,7 @@
     <div style="display:flex; gap:10px; margin-top:20px;"><button class="btn-round" style="flex:1; background:#eee; color:#333;" onclick="closeConfirm()">まだ</button><button class="btn-round btn-orange" style="flex:1;" onclick="processSubmit()">提出する</button></div>
 </div></div>
 
-<!-- 4. テストルーム -->
+<!-- 4. テストルーム / 見直し -->
 <div id="screen-quiz" class="screen">
     <div class="quiz-top-nav">
         <div class="tab-container" id="tab-container"></div>
@@ -200,7 +201,7 @@
             <div class="footer-tool-btn" id="btn-eraser" onclick="toggleTool('eraser')">⌫ 消しゴム</div>
             <div class="footer-tool-btn" onclick="toggleSettings()"><svg width="14" height="14" viewBox="0 0 512 512" fill="currentColor"><path d="M487.4 315.7l-42.6-24.6c2.3-11.7 3.5-23.8 3.5-36.1s-1.2-24.4-3.5-36.1l42.6-24.6c11.6-6.7 15.6-21.6 8.9-33.2l-40-69.3c-6.7-11.6-21.6-15.6-33.2-8.9l-42.6 24.6c-19.4-15.1-41.2-27.1-64.8-35.3V52c0-13.4-10.8-24-24.2-24h-80c-13.4 0-24.2 10.7-24.2 24v49.8c-23.6 8.2-45.4 20.2-64.8 35.3l-42.6-24.6c-11.6-6.7-26.5-2.7-33.2 8.9l-40 69.3c-6.7 11.6-2.7 26.5 8.9 33.2l42.6 24.6c-2.3 11.7-3.5 23.8-3.5 36.1s1.2 24.4 3.5 36.1l-42.6 24.6c-11.6 6.7-15.6 21.6-8.9 33.2l40 69.3c6.7 11.6 21.6 15.6 33.2 8.9l42.6 24.6c19.4 15.1 41.2 27.1 64.8 35.3V460c0 13.4 10.8 24 24.2 24h80c13.4 0 24.2-10.7 24.2-24v-49.8c23.6-8.2 45.4-20.2 64.8-35.3l42.6 24.6c11.6 6.7 26.5 2.7 33.2-8.9l40-69.3c6.6-11.6 2.7-26.5-8.9-33.2zM256 348c-50.8 0-92-41.2-92-92s41.2-92 92-92 92 41.2 92 92-41.2 92-92 92z"/></svg>設定</div>
         </div>
-        <div class="footer-center"><div id="quiz-footer-badge" class="subject-badge-footer">教科</div></div>
+        <div class="footer-center"><div id="quiz-footer-badge" class="subject-badge-footer color-sc">理科</div></div>
         <div class="footer-right">
             <div class="nav-arrow-btn" onclick="prevQ()"><svg class="svg-icon" width="20" height="20" viewBox="0 0 24 24" style="stroke:#333; stroke-width:3;"><polyline points="15 18 9 12 15 6"/></svg></div>
             <div style="font-weight:bold; font-size:1.1rem; min-width:60px; text-align:center;"><span id="curr-page">1</span> / <span id="total-page">16</span></div>
@@ -217,8 +218,8 @@
             <div class="result-main-left">
                 <div class="score-donut" id="score-donut-el"><div class="score-inner"><div id="final-score" class="score-num">0</div><div>/ 100</div></div></div>
                 <div style="flex:1; padding-left:20px;">
-                    <div><span id="result-subject-tag" class="subject-badge-home color-sc">理科</span><span id="result-title-label" style="font-weight:bold; font-size:1.2rem;">テスト名</span></div>
-                    <div style="font-size:0.8rem; color:#666; margin-top:12px;" id="result-time-txt">解答時間：--分</div>
+                    <div><span id="result-subject-tag" class="subject-badge-home color-sc">理科</span><span id="result-title-label" style="font-weight:bold; font-size:1.2rem; margin-left:10px;">顕微鏡の使い方</span></div>
+                    <div style="font-size:0.8rem; color:#666; margin-top:8px;" id="result-time-txt">解答時間：--分</div>
                 </div>
             </div>
             <div class="result-main-right">
@@ -226,7 +227,7 @@
                 <div class="retry-track">
                     <div id="retry-fill-bar" class="retry-fill"></div>
                     <div class="retry-char-icon" id="character-pos">
-                        <svg class="svg-icon" width="24" height="24" style="stroke:#333;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 5"/></svg>
+                        <svg class="svg-icon" width="24" height="24" style="stroke:#333;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
                     </div>
                 </div>
                 <button class="btn-retry-all-main" onclick="startRetry()">まとめて見直し →</button>
@@ -249,22 +250,48 @@
 <script>
     function strip(html) { const d = document.createElement("div"); d.innerHTML = html; return (d.textContent || d.innerText || "").replace(/\s/g,''); }
 
+    // --- 理科・顕微鏡の問題16問 ---
     const microscopeQuestions = [
-      { q: "<ruby>顕微鏡<rt>けんびきょう</rt></ruby>を<ruby>準備<rt>じゅんび</rt></ruby>するとき、<ruby>最初<rt>さいしょ</rt></ruby>に付けるレンズは？", type: "choice", opts: ["対物レンズ", "接眼レンズ", "ルーペ"], ans: "接眼レンズ" },
+      { q: "<ruby>顕微鏡<rt>けんびきょう</rt></ruby>を<ruby>準備<rt>じゅんび</rt></ruby>するとき、<ruby>最初<rt>さいしょ</rt></ruby>に付けるレンズは？", type: "choice", opts: ["対物レンズ", "接眼レンズ", "ルーペ", "凹面鏡"], ans: "接眼レンズ" },
       { q: "レンズの中で、<ruby>観察<rt>かんさつ</rt></ruby>する物体に近い方のレンズを何という？", type: "input", ans: "対物レンズ" },
-      { q: "明るさを調節するものをすべて選べ。", type: "multi", opts: ["反射鏡", "絞り", "調節ねじ", "レボルバー"], ans: ["反射鏡", "絞り"] }
+      { q: "明るさを調節するものをすべて選びなさい。", type: "multi", opts: ["反射鏡", "絞り", "調節ねじ", "レボルバー"], ans: ["反射鏡", "絞り"] },
+      { q: "接眼レンズが10倍、対物レンズが40倍のとき、全体の倍率は何倍ですか？", type: "choice", opts: ["10倍", "40倍", "50倍", "400倍"], ans: "400倍" },
+      { q: "対物レンズの倍率を変えるときに回転させる部分を何といいますか？", type: "input", ans: "レボルバー" },
+      { q: "顕微鏡を持ち運ぶときに持つべき部分をすべて選びなさい。", type: "multi", opts: ["アーム", "鏡台", "鏡筒", "ステージ"], ans: ["アーム", "鏡台"] },
+      { q: "プレパラートと対物レンズを近づけるとき、どこから見ながら操作しますか？", type: "choice", opts: ["真上から", "真下から", "横から", "接眼レンズから"], ans: "横から" },
+      { q: "観察する材料をのせるための、長方形の板ガラスを何といいますか？", type: "input", ans: "スライドガラス" },
+      { q: "倍率を低いものから高いものに変えたときの変化について、正しいものをすべて選べ。", type: "multi", opts: ["視野が広くなる", "視野が狭くなる", "視野が明るくなる", "視野が暗くなる"], ans: ["視野が狭くなる", "視野が暗くなる"] },
+      { q: "視野の左上にあるものを中央に移動させたいとき、プレパラートをどの方向に動かしますか？", type: "choice", opts: ["右上", "左上", "右下", "左下"], ans: "左上" },
+      { q: "プレパラートをのせるための台の名前を何といいますか？", type: "input", ans: "ステージ" },
+      { q: "顕微鏡のピントを合わせるときに使う部品をすべて選びなさい。", type: "multi", opts: ["調節ねじ", "微動ねじ", "レボルバー", "反射鏡"], ans: ["調節ねじ", "微動ねじ"] },
+      { q: "顕微鏡で見える像は、実際の向きと比べてどうなっていますか？", type: "choice", opts: ["そのままの向き", "左右だけが逆", "上下だけが逆", "上下左右が逆"], ans: "上下左右が逆" },
+      { q: "スライドガラスの上にのせた材料にかぶせる、薄いガラスを何といいますか？", type: "input", ans: "カバーガラス" },
+      { q: "顕微鏡の倍率を変えるとき、関係するものをすべて選びなさい。", type: "multi", opts: ["接眼レンズ", "対物レンズ", "レボルバー", "反射鏡"], ans: ["接眼レンズ", "対物レンズ", "レボルバー"] },
+      { q: "低倍率と高倍率を比べたとき、視野に見える範囲がより広いのはどちらですか？", type: "choice", opts: ["低倍率", "高倍率", "どちらも同じ", "反射鏡による"], ans: "低倍率" }
     ];
-    for(let i=4; i<=16; i++) microscopeQuestions.push({q:`第${i}問：理科の練習問題。正しいものを選べ。`, type:"choice", opts:["正解","誤答A","誤答B"], ans:"正解"});
 
+    // --- ガスバーナーの問題15問 ---
     const burnerQuestions = [
-      { q: "ガスバーナーの<ruby>上側<rt>うえがわ</rt></ruby>にあるねじは？", type: "choice", opts: ["ガス調節ねじ", "空気調節ねじ", "元栓"], ans: "空気調節ねじ" },
-      { q: "ガスバーナーの<ruby>下側<rt>したがわ</rt></ruby>にあるねじは？", type: "input", ans: "ガス調節ねじ" }
+      { "q": "ガスバーナーの<ruby>上側<rt>うえがわ</rt></ruby>にある、<ruby>空気<rt>くうき</rt></ruby>の<ruby>量<rt>りょう</rt></ruby>を<ruby>調節<rt>ちょうせつ</rt></ruby>するねじを<ruby>何<rt>なに</rt></ruby>といいますか？", "type": "choice", "opts": ["ガス調節ねじ", "空気調節ねじ", "レボルバー", "元栓"], "ans": "空気調節ねじ" },
+      { "q": "ガスバーナーの<ruby>下側<rt>したがわ</rt></ruby>にある、ガスの<ruby>量<rt>りょう</rt></ruby>を<ruby>調節<rt>ちょうせつ</rt></ruby>するねじの名称を入力してください。", "type": "input", "ans": "ガス調節ねじ" },
+      { "q": "ガスバーナーに点火する前に、あらかじめ閉まっていることを確認すべきものをすべて選びなさい。", "type": "multi", "opts": ["ガス調節ねじ", "空気調節ねじ", "元栓", "コック"], "ans": ["ガス調節ねじ", "空気調節ねじ"] },
+      { "q": "ガスバーナーに火をつけるとき、マッチの火を近づけるタイミングとして正しいものはどれですか？", "type": "choice", "opts": ["ガス調節ねじを開ける前", "ガス調節ねじを開けた後", "元栓を開ける前", "空気調節ねじを開けた後"], "ans": "ガス調節ねじを開ける前" },
+      { "q": "ガスの量に対して空気が不足しているとき、炎は何色になりますか？", "type": "input", "ans": "黄色" },
+      { "q": "ガスバーナーを使うために開ける必要があるものをすべて選びなさい。", "type": "multi", "opts": ["ガス調節ねじ", "元栓", "コック", "絞り"], "ans": ["ガス調節ねじ", "元栓", "コック"] },
+      { "q": "空気の量を適切に調節したときの、安定した炎の色はどれですか？", "type": "choice", "opts": ["赤色", "黄色", "青色", "白色"], "ans": "青色" },
+      { "q": "ねじを緩めて開けるとき、ねじをどちらの方向にまわしますか？", "type": "input", "ans": "反時計回り" },
+      { "q": "火を消すときの手順として正しいものをすべて選びなさい。", "type": "multi", "opts": ["空気調節ねじを閉める", "ガス調節ねじを閉める", "元栓を閉める", "接眼レンズをはずす"], "ans": ["空気調節ねじを閉める", "ガス調節ねじを閉める", "元栓を閉める"] },
+      { "q": "<ruby>空気調節<rt>くうきちょうせつ</rt></ruby>ねじを操作するとき、ガス調節ねじが動かないようにするためにどうしますか？", "type": "choice", "opts": ["ガス調節ねじを押さえる", "ねじをテープで止める", "何もしない", "ガスを止める"], "ans": "ガス調節ねじを押さえる" },
+      { "q": "ガスバーナーと元栓を接続している、ゴム製の管の名前は？", "type": "input", "ans": "ガス用ゴム管" },
+      { "q": "炎が黄色く、ゆらゆらしているのはなぜですか？", "type": "choice", "opts": ["ガスの出すぎ", "空気の入りすぎ", "空気が足りない", "元栓が閉まっている"], "ans": "空気が足りない" },
+      { "q": "ガスバーナーを点火するときに必要なものをすべて選びなさい。", "type": "multi", "opts": ["マッチ", "濡れ雑巾", "保護眼鏡", "燃えかす入れ"], "ans": ["マッチ", "濡れ雑巾", "保護眼鏡", "燃えかす入れ"] },
+      { "q": "<ruby>青色<rt>あおいろ</rt></ruby>の安定した炎で、ガスがしっかりと燃えている状態を何といいますか？", "type": "input", "ans": "完全燃焼" },
+      { "q": "ねじを締めて閉めるとき、ねじをどちらの方向にまわしますか？", "type": "choice", "opts": ["時計回り", "反時計回り", "上方向", "下方向"], "ans": "時計回り" }
     ];
-    for(let i=3; i<=16; i++) burnerQuestions.push({q:`第${i}問：ガスバーナーの練習。`, type:"choice", opts:["正解","誤答A","誤答B"], ans:"正解"});
 
     const allTests = [
       { id: "sci_micro", subject: "理科", title: "顕微鏡の使い方16問", questions: microscopeQuestions },
-      { id: "sci_burner", subject: "理科", title: "ガスバーナーの使い方16問", questions: burnerQuestions }
+      { id: "sci_burner", subject: "理科", title: "ガスバーナーの使い方15問", questions: burnerQuestions }
     ];
 
     const subjectColors = { "理科": "color-sc", "社会": "color-ss" };
@@ -279,7 +306,9 @@
         allTests.forEach(test => {
             loadTestStatus(test);
             const colorClass = subjectColors[test.subject] || "color-ss";
-            let btns = test.submitted ? `<button class="btn-round btn-blue" onclick="openResults('${test.id}')" style="margin-right:10px;">回答を見る</button><button class="btn-round btn-orange" onclick="startFlow('${test.id}')">再挑戦</button>` : `<button class="btn-round btn-orange" onclick="startFlow('${test.id}')">テストルームへ</button>`;
+            let btns = test.submitted 
+                ? `<button class="btn-round btn-blue" onclick="openResults('${test.id}')" style="margin-right:10px;">回答を見る</button><button class="btn-round btn-orange" onclick="startFlow('${test.id}')">再挑戦</button>`
+                : `<button class="btn-round btn-orange" onclick="startFlow('${test.id}')">テストルームへ</button>`;
             area.innerHTML += `<div class="item-row"><div><span class="subject-badge-home ${colorClass}">${test.subject}</span><span>${test.title}</span></div><div>${btns}</div></div>`;
         });
     }
@@ -305,7 +334,6 @@
         if(!isDetailView) startTime = Date.now();
         document.getElementById('quiz-submit-btn').style.display = isDetailView ? 'none' : 'block';
         document.getElementById('quiz-close-btn').style.display = isDetailView ? 'block' : 'none';
-        document.getElementById('quiz-footer-badge').className = "subject-badge-footer " + (subjectColors[currentTest.subject] || "color-ss");
         document.getElementById('quiz-footer-badge').innerText = currentTest.subject;
         renderQuiz(false); setTimeout(initCanvas, 100);
     }
@@ -313,8 +341,7 @@
     function renderQuiz(animate = true, direction = 'right') {
         const b = document.getElementById('quiz-animate-body');
         if(animate) { b.classList.remove('slide-in-right', 'slide-in-left'); void b.offsetWidth; b.classList.add(direction === 'right' ? 'slide-in-right' : 'slide-in-left'); }
-        const q = activeQuestions[currentIdx];
-        const gIdx = currentTest.questions.indexOf(q);
+        const q = activeQuestions[currentIdx]; const gIdx = currentTest.questions.indexOf(q);
         const check = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#28a745" stroke-width="4"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
         document.getElementById('tab-container').innerHTML = activeQuestions.map((_, i) => {
             const idx = currentTest.questions.indexOf(activeQuestions[i]); const hasAns = isDetailView ? true : userAnswers[idx] !== null;
@@ -371,21 +398,20 @@
         document.getElementById('retry-fill-bar').style.width = prog + '%';
         document.getElementById('result-time-txt').innerText = `解答時間：${Math.floor((Date.now()-startTime)/60000)||1}分`;
         document.getElementById('result-title-label').innerText = currentTest.title;
-        document.getElementById('result-subject-tag').innerText = currentTest.subject;
         document.getElementById('result-subject-tag').className = "subject-badge color-sc"; 
     }
 
     function openResults(id) { currentTest = allTests.find(t => t.id === id); userAnswers = currentTest.userAnswers; correctedFlags = currentTest.correctedFlags || Array(currentTest.questions.length).fill(false); isDetailView = false; showResultsDetail(); }
     function showHome() { document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active-screen')); document.getElementById('screen-home').classList.add('active-screen'); renderHome(); }
-    function showOneDetail(i) { isDetailView = true; isReviewMode = true; initQuiz(i, currentTest.questions); }
-    function backToResult() { isDetailView = false; isReviewMode = false; showResultsDetail(); }
+    function showOneDetail(i) { isDetailView = true; initQuiz(i, currentTest.questions); }
+    function backToResult() { isDetailView = false; showResultsDetail(); }
     function startRetry() {
         const wrongs = currentTest.questions.filter((q, i) => {
             const isCorrect = q.type === "multi" ? (Array.isArray(userAnswers[i]) && [...userAnswers[i]].sort().join(",") === [...q.ans].sort().join(",")) : (strip(userAnswers[i]||"") === strip(q.ans));
             return !isCorrect;
         });
         if(!wrongs.length) return alert("全問正解です！");
-        isDetailView = false; isReviewMode = false; initQuiz(0, wrongs, true);
+        isDetailView = false; initQuiz(0, wrongs, true);
     }
 
     const canvas = document.getElementById('memo-canvas'), ctx = canvas.getContext('2d');
